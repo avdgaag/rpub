@@ -1,0 +1,7 @@
+doc
+.yardoc
+bin/*
+!bin/rpub
+.bundle
+.DS_Store
+*~

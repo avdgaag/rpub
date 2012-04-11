@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby -w
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'rpub'

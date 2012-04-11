@@ -1,0 +1,6 @@
+--format progress
+--color
+-Ilib
+-Ispec
+-r spec_helper
+-r rpub
