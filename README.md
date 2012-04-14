@@ -1,4 +1,4 @@
-# rPub -- an ePub generator in Ruby
+# rPub -- an ePub generator in Ruby [![Build Status](https://secure.travis-ci.org/avdgaag/rpub.png?branch=master)](http://travis-ci.org/avdgaag/rpub)
 
 ## Introduction
 
