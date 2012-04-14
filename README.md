@@ -57,7 +57,7 @@ in a special configuration file called `config.yml`:
     title: My new book
     version: 0.1.0
 
-This file is written in [YAML][] and sets basic properties of your book project.
+This file is written in [YAML](http://yaml.org) and sets basic properties of your book project.
 
 To make sure the book you generated is _valid_ -- meaning it is likely that most
 readers out there will be able to read it -- you can use the special `validate`
@@ -137,4 +137,4 @@ Created by: Arjan van der Gaag
 URL: [http://arjanvandergaag.nl](http://arjanvandergaag.nl)  
 Project homepage: [http://avdgaag.github.com/rpub](http://avdgaag.github.com/rpub)  
 Date: april 2012  
-License: [MIT-license](LICENSE) (same as Ruby)
+License: [MIT-license](https://github.com/avdgaag/rpub/LICENSE) (same as Ruby)
