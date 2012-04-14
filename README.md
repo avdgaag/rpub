@@ -1,5 +1,7 @@
 # rPub -- an ePub generator in Ruby [![Build Status](https://secure.travis-ci.org/avdgaag/rpub.png?branch=master)](http://travis-ci.org/avdgaag/rpub)
 
+**Note** this project is still in development and not yet ready for general use.
+
 ## Introduction
 
 rPub is a command-line tool that generates a collection of plain text input
