@@ -107,7 +107,7 @@ easy viewing in any browser.
 
 ### Examples
 
-See the [examples directory](examples) for two example projects.
+See the [examples directory](https://github.com/avdgaag/rpub/example) for two example projects.
 
 ## Other
 
@@ -129,7 +129,7 @@ tracker](https://github.com/avdgaag/rpub/issues).
 
 ### What has changed?
 
-See the [HISTORY](HISTORY) file for a detailed changelog.
+See the [HISTORY](https://github.com/avdgaag/rpub/HISTORY) file for a detailed changelog.
 
 ### Credits
 
