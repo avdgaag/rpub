@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rpub by avdgaag</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rpub</h1>
+        <p>an ePub generation library in Ruby</p>
+        <p class="view"><a href="https://github.com/avdgaag/rpub">View the Project on GitHub <small>avdgaag/rpub</small></a></p>
+        <ul>
+          <li><a href="https://github.com/avdgaag/rpub/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/avdgaag/rpub/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/avdgaag/rpub">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Introduction</h1>
+
+<p>rPub is a command-line tool that generates a collection of plain text input
+files into an eBook in ePub format. It provides several related functions to
+make working with ePub files a little easier:</p>
+
+<ul>
+<li>Generation of table of contents</li>
+<li>Tracking of references to tables or figures</li>
+<li>Validation of output file</li>
+<li>Packaging your eBook in an archive with additional README file</li>
+<li>Very simple version control</li>
+</ul><h1>Installation</h1>
+
+<p>rPub is distributed as a Ruby gem, which should be installed on most Macs and
+Linux systems. Once you have ensured you have a working installation of Ruby
+and Ruby gems, install the gem as follows from the command line:</p>
+
+<pre><code>$ gem install rpub
+</code></pre>
+
+<p>You can verify the gem has installed correctly by checking its version number:</p>
+
+<pre><code>$ rpub -v
+</code></pre>
+
+<p>If this generates an error, something has gone wrong. You should see something
+along the lines of <code>rpub 1.0.0</code>.</p>
+
+<h1>Usage</h1>
+
+<h2>Basics</h2>
+
+<p>ePubs are basically collections of HTML files, combined in a single archive
+according to a set of predefined rules. rPub generates these files for you from
+simple text files written in <a href="http://daringfireball.net/projects/markdown">Markdown</a>, a very readable markup language created
+by <a href="http://daringfireball.net">John Gruber</a>. This very README file is an example of a Markdown document.</p>
+
+<p>The idea is you write several Markdown files using your favourite text editor,
+and save them as plain text in your project directory. Usually you would write
+one file per chapter. By invoking the <code>rpub</code> program you convert those files to
+HTML and combine them in an ePub archive:</p>
+
+<pre><code>$ rpub compile
+Generating my-new-book-0.1.0.epub... Done!
+</code></pre>
+
+<p>After you have run the <code>rpub compile</code> command, you will find a new <code>.epub</code> file
+in your project directory. The name of this file depends on the title of your
+book, and its version number. You can set these values, as well as a few others,
+in a special configuration file called <code>config.yml</code>:</p>
+
+<pre><code>---
+author: Your Name
+title: My new book
+version: 0.1.0
+</code></pre>
+
+<p>This file is written in [YAML][] and sets basic properties of your book project.</p>
+
+<p>To make sure the book you generated is <em>valid</em> -- meaning it is likely that most
+readers out there will be able to read it -- you can use the special <code>validate</code>
+command:</p>
+
+<pre><code>$ rpub validate
+</code></pre>
+
+<p>rPub will report any errors it finds. No output means everything is alright.</p>
+
+<p>Since regenerating your ePub file and opening it in a suitable reader
+application is cumbersome, rPub can generate a simple preview document for you:</p>
+
+<pre><code>$ rpub preview
+</code></pre>
+
+<p>This will generate a new HTML file in your project directory with a name similar
+to your ePub file. This is the entire text of your book as a single web page for
+easy viewing in any browser.</p>
+
+<h2>Advanced features</h2>
+
+<h3>Watching for changes</h3>
+
+<h3>Packaging for distribution</h3>
+
+<h3>Very simple version control</h3>
+
+<h3>Automatic references</h3>
+
+<h3>Automatic table of contents</h3>
+
+<h3>Custom layout and styles</h3>
+
+<h2>Command reference</h2>
+
+<ul>
+<li>
+<code>rpub compile</code> -- generate .epub file</li>
+<li>
+<code>rpub package</code> -- create zip file with compiled book and other listed files</li>
+<li>
+<code>rpub validate</code> -- compile, then validate</li>
+<li>
+<code>rpub preview</code> -- generate preview HTML file</li>
+<li>
+<code>rpub new</code> -- create skeleton directory tree</li>
+<li>
+<code>rpub help</code> -- get help on subcommands</li>
+<li>
+<code>rpub clean</code> -- remove generated files</li>
+<li>
+<code>rpub release</code> -- package and tag in Git</li>
+<li>
+<code>rpub snapshot</code> -- commit changes in git after validation</li>
+</ul><h2>Examples</h2>
+
+<p>See the <a href="examples">examples directory</a> for two example projects.</p>
+
+<h1>Other</h1>
+
+<h2>Note on Patches/Pull Requests</h2>
+
+<ol>
+<li>Fork the project.</li>
+<li>Make your feature addition or bug fix.</li>
+<li>Add tests for it. This is important so I don't break it in a future version
+unintentionally.</li>
+<li>Commit, do not mess with rakefile, version, or history. (if you want to have
+your own version, that is fine but bump version in a commit by itself I can
+ignore when I pull)</li>
+<li>Send me a pull request. Bonus points for topic branches.</li>
+</ol><h2>Issues</h2>
+
+<p>Please report any issues, defects or suggestions in the <a href="https://github.com/avdgaag/rpub/issues">Github issue
+tracker</a>.</p>
+
+<h2>What has changed?</h2>
+
+<p>See the <a href="HISTORY">HISTORY</a> file for a detailed changelog.</p>
+
+<h2>Credits</h2>
+
+<p>Created by: Arjan van der Gaag<br>
+URL: <a href="http://arjanvandergaag.nl">http://arjanvandergaag.nl</a><br>
+Project homepage: <a href="http://avdgaag.github.com/rpub">http://avdgaag.github.com/rpub</a><br>
+Date: april 2012<br>
+License: <a href="LICENSE">MIT-license</a> (same as Ruby)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/avdgaag">avdgaag</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-20357800-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
