@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+<%
+extend ::Kramdown::Utils::Html
+title = ''
+h = @converter.root.children.find {|c| c.type == :header}
+if h
+  collector = lambda {|c| c.children.collect {|cc| cc.type == :text ? escape_html(cc.value, :text) : collector.call(cc)}.join('')}
+  title = collector.call(h)
+end
+%>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="styles.css" type="text/css" />
+    </head>
+    <body>
+        <%= @body %>
+    </body>
+</html>
