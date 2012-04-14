@@ -4,16 +4,47 @@ module RPub
       identifier 'compile'
 
       def invoke
-        layout   = File.exist?('layout.html.erb') ? 'layout.html.erb' : nil
+        super
 
-        book = Book.new YAML.load_file('config.yml')
-        Dir['*.md'].each do |file|
-          book << File.read(file)
-        end
+        book = Book.new(YAML.load_file(config_file), layout)
+        markdown_files.each(&book.method(:<<))
 
         Compressor.open(book.filename) do |zip|
           Epub.new(book, layout).manifest_in(zip)
         end
+      end
+
+      module Helpers
+        def markdown_files
+          @markdown_files ||= Dir['*.md'].sort.map(&File.method(:read))
+        end
+
+        def layout
+          @layout ||= if File.exist?('layout.html')
+            'layout.html'
+          else
+            File.expand_path('../../../../support/layout.html', __FILE__)
+          end
+        end
+      end
+      include Helpers
+
+    private
+
+      def parser
+        OptionParser.new do |opts|
+          opts.on '-l', '--layout FILENAME', 'Specify an explicit layout file to use' do |filename|
+            @layout = filename
+          end
+
+          opts.on '-c', '--config FILENAME', 'Specify an explicit configuration file to use' do |filename|
+            @config_file = filename
+          end
+        end
+      end
+
+      def config_file
+        @config_file ||= 'config.yml'
       end
     end
   end

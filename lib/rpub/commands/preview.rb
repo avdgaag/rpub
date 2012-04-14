@@ -1,6 +1,8 @@
 module RPub
   module Commands
     class Preview < Base
+      include Compile::Helpers
+
       identifier 'preview'
 
       def initialize(*args)
@@ -11,9 +13,9 @@ module RPub
       def invoke
         super
         return unless markdown_files.any?
-        concatenation = markdown_files.map(&File.method(:read)).join("\n")
+        concatenation = markdown_files.join("\n")
         File.open(@filename, 'w') do |f|
-          f.write Kramdown::Document.new(concatenation, template: 'document').to_html
+          f.write Kramdown::Document.new(concatenation, :template => layout).to_html
         end
       end
 
@@ -21,14 +23,14 @@ module RPub
 
       def parser
         OptionParser.new do |opts|
+          opts.on '-l', '--layout FILENAME', 'Specify an explicit layout file to use' do |filename|
+            @layout = filename
+          end
+
           opts.on '-o', '--output FILENAME', 'Specify an explicit output file' do |filename|
             @filename = filename
           end
         end
-      end
-
-      def markdown_files
-        @markdown_files ||= Dir['*.md'].sort
       end
     end
   end

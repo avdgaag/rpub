@@ -2,10 +2,10 @@ module RPub
   class Chapter
     attr_reader :content, :number
 
-    def initialize(content, chapter_number)
+    def initialize(content, chapter_number, layout)
       @content  = content
       @number   = chapter_number
-      @document = Kramdown::Document.new(content, :template => File.expand_path('../../../support/layout.html', __FILE__), :auto_ids => false)
+      @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
     end
 
     def uid

@@ -12,9 +12,9 @@ require 'rpub/subclass_tracker'
 require 'rpub/commander'
 require 'rpub/commands/base'
 require 'rpub/commands/main'
-require 'rpub/commands/preview'
 require 'rpub/commands/clean'
 require 'rpub/commands/compile'
+require 'rpub/commands/preview'
 require 'rpub/book'
 require 'rpub/chapter'
 require 'rpub/compressor'
@@ -30,4 +30,8 @@ module RPub
       super "Unknown subcommand: #{subcommand}"
     end
   end
+
+  KRAMDOWN_OPTIONS = {
+    :auto_ids => false
+  }
 end

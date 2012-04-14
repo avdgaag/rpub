@@ -2,10 +2,10 @@ module RPub
   class Book
     include Enumerable
 
-    attr_reader :config, :chapters
+    attr_reader :config, :chapters, :layout
 
-    def initialize(config = {})
-      @chapters, @config = [], config
+    def initialize(config = {}, layout)
+      @chapters, @config, @layout = [], config, layout
     end
 
     def respond_to?(m)
@@ -22,7 +22,7 @@ module RPub
     end
 
     def add_chapter(chapter)
-      chapters << Chapter.new(chapter, chapters.size)
+      chapters << Chapter.new(chapter, chapters.size, layout)
     end
     alias_method :<<, :add_chapter
 
