@@ -7,6 +7,13 @@ describe RPub::Commands::Clean do
 
   after do
     FileUtils.touch 'preview.html'
+    FileUtils.touch 'example.epub'
+  end
+
+  it 'should remove example.epub file' do
+    expect {
+      described_class.new.invoke
+    }.to remove_file('example.epub')
   end
 
   it 'should remove preview.html file' do
@@ -25,7 +32,7 @@ describe RPub::Commands::Clean do
     end
 
     it 'should not print non-existant files' do
-      File.should_receive(:exist?).with('preview.html').and_return(false)
+      FileUtils.rm 'preview.html'
       subject.invoke
       buffer.string.should_not include('preview.html')
     end
