@@ -12,7 +12,6 @@ make working with ePub files a little easier:
 * Tracking of references to tables or figures
 * Validation of output file
 * Packaging your eBook in an archive with additional README file
-* Very simple version control
 
 ## Installation
 
@@ -102,8 +101,6 @@ easy viewing in any browser.
 * `rpub new` -- create skeleton directory tree
 * `rpub help` -- get help on subcommands
 * `rpub clean` -- remove generated files
-* `rpub release` -- package and tag in Git
-* `rpub snapshot` -- commit changes in git after validation
 
 ### Examples
 
