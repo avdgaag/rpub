@@ -1,20 +1,14 @@
 module RPub
   class Book
     include Enumerable
+    include HashDelegation
+
+    delegate_to_hash :config
 
     attr_reader :config, :chapters, :layout
 
     def initialize(config = {}, layout)
       @chapters, @config, @layout = [], config, layout
-    end
-
-    def respond_to?(m)
-      super || config.has_key?(m.to_s)
-    end
-
-    def method_missing(m, *args, &block)
-      return super unless respond_to? m
-      config.fetch m.to_s
     end
 
     def each
