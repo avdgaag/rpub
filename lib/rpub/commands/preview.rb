@@ -15,7 +15,7 @@ module RPub
         return unless markdown_files.any?
         concatenation = markdown_files.join("\n")
         File.open(@filename, 'w') do |f|
-          f.write Kramdown::Document.new(concatenation, :template => layout).to_html
+          f.write Kramdown::Document.new(concatenation, KRAMDOWN_OPTIONS.merge(:template => layout)).to_html
         end
       end
 
