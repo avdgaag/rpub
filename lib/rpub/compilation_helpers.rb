@@ -14,7 +14,7 @@ module RPub
       @layout ||= if File.exist?('layout.html')
                     'layout.html'
                   else
-                    File.expand_path('../../../support/layout.html', __FILE__)
+                    RPub.support_file('layout.html')
                   end
     end
 
@@ -22,7 +22,7 @@ module RPub
       @styles ||= if File.exists?('styles.css')
                     'styles.css'
                   else
-                    File.expand_path('../../../support/styles.css', __FILE__)
+                    RPub.support_file('styles.css')
                   end
     end
 

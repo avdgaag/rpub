@@ -29,10 +29,16 @@ require 'rpub/epub/toc'
 require 'rpub/epub/content'
 
 module RPub
+  GEM_ROOT = File.expand_path('../../', __FILE__)
+
   class InvalidSubcommand < StandardError
     def initialize(subcommand)
       super "Unknown subcommand: #{subcommand}"
     end
+  end
+
+  def self.support_file(path)
+    File.join(GEM_ROOT, 'support', path)
   end
 
   KRAMDOWN_OPTIONS = {
