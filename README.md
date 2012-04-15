@@ -84,13 +84,54 @@ easy viewing in any browser.
 
 #### Packaging for distribution
 
-#### Very simple version control
+Often you want to distribute your ebook over the internet, along with some
+extra files. You'll probably want to include a README file, a license or
+references to extra online resources. A `package` task is defined to generate a
+single compressed archive file from your generated ebook along with such
+additional files.
+
+You list the files to include with your ebook in your `config.yml` file, along
+with the resulting packaged file name:
+
+    ---
+    package_file: mybook.zip
+    package:
+      - README
+      - license.txt
+      - code-samples.rb
+
+All the filenames listed under `package` are looked up in the root of your
+project directory. These files will be combined with the ebook in the
+`mybook.zip` file in your project directory.
 
 #### Automatic references
 
 #### Automatic table of contents
 
 #### Custom layout and styles
+
+When you compile a set of Markdown files to an ePub file, rpub uses a default
+HTML layout and set of styles to determine the look and feel of the book. These
+will do fine for most cases, but you can provide your own, if you are so
+inclined.
+
+Simply define a `layout.html` and/or `styles.css` in your project directory.
+Your HTML file will be parsed with Erb, an so you can include your writing
+using the `yield` method:
+
+    <html>
+    <body>
+      <%= yield %>
+    </body>
+    </html>
+
+**Note**: despite the name 'html' and `.html` extension, your file actually has
+to be XHTML-compliant.
+
+You can also provide custom layouts or styles to use when invoking the `compile`
+or `preview` commands, using the `-l` or `-s` options:
+
+    $ rpub compile -l /tmp/my-layout.html
 
 ### Command reference
 
