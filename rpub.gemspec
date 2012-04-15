@@ -40,6 +40,7 @@ EOS
   s.add_runtime_dependency 'typogruby'
   s.add_runtime_dependency 'kramdown'
   s.add_runtime_dependency 'rubyzip'
+  s.add_runtime_dependency 'builder'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'guard'

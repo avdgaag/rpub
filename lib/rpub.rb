@@ -1,9 +1,9 @@
 require 'optparse'
 require 'fileutils'
-require 'builder'
 require 'yaml'
 require 'digest'
 
+require 'builder'
 require 'kramdown'
 require 'zip/zip'
 
