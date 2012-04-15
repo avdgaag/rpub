@@ -11,12 +11,13 @@ module RPub
       @chapters, @config, @layout = [], config, layout
     end
 
-    def each
-      chapters.each { |c| yield c }
+    def each(&block)
+      chapters.each(&block)
     end
 
     def add_chapter(chapter)
       chapters << Chapter.new(chapter, chapters.size, layout)
+      self
     end
     alias_method :<<, :add_chapter
 

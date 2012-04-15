@@ -1,23 +1,22 @@
 module RPub
   class Chapter
-    attr_reader :content, :number
+    attr_reader :content, :number, :layout
 
-    def initialize(content, chapter_number, layout)
-      @content  = content
-      @number   = chapter_number
+    def initialize(content, number, layout)
+      @content, @number, @layout = content, number, layout
       @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
     end
 
     def uid
-      @uid ||= Digest::SHA1.hexdigest(content + id.to_s)
+      @uid ||= Digest::SHA1.hexdigest([content, id.to_s, layout].join)
     end
 
     def id
-      "chapter-#{number}"
+      @id ||= "chapter-#{number}"
     end
 
     def to_html
-      @document.to_html
+      @to_html ||= @document.to_html
     end
 
     def filename
