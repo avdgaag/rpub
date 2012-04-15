@@ -7,7 +7,7 @@ module RPub
 
     attr_reader :config, :chapters, :layout
 
-    def initialize(config = {}, layout)
+    def initialize(layout, config = {})
       @chapters, @config, @layout = [], config, layout
     end
 

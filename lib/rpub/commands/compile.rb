@@ -6,7 +6,7 @@ module RPub
       def invoke
         super
 
-        book = Book.new(YAML.load_file(config_file), layout)
+        book = Book.new(layout, YAML.load_file(config_file))
         markdown_files.each(&book.method(:<<))
 
         Compressor.open(book.filename) do |zip|
