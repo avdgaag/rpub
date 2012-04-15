@@ -3,7 +3,7 @@ module RPub
     attr_reader :xml
 
     def initialize
-      @xml = Builder::XmlMarkup.new indent: 2
+      @xml = Builder::XmlMarkup.new :indent => 2
     end
 
     def to_s

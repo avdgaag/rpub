@@ -45,7 +45,6 @@ EOS
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'guard'
-  s.add_development_dependency 'guard-yard'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'rb-fsevent'
   s.add_development_dependency 'growl'

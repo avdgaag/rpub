@@ -18,7 +18,7 @@ module RPub
             xml.dc :creator,     book.creator, 'opf:role' => 'aut'
             xml.dc :publisher,   book.publisher
             xml.dc :subject,     book.subject
-            xml.dc :identifier,  book.uid, id: 'BookId'
+            xml.dc :identifier,  book.uid, :id => 'BookId'
             xml.dc :rights,      book.rights
             xml.dc :description, book.description
           end
