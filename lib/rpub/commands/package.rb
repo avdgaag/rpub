@@ -17,6 +17,30 @@ module RPub
           end
         end
       end
+
+    private
+
+      def parser
+        OptionParser.new do |opts|
+          opts.banner = <<-EOS
+Usage: rpub package
+
+Compile your ebook to an ePub file and package it into an archive together with
+optional other files for easy distibution. You might want to include a README
+file, a license or other promotion material.
+
+Options:
+EOS
+          opts.separator ''
+          opts.separator 'Generic options:'
+          opts.separator ''
+
+          opts.on_tail '-h', '--help', 'Display this message' do
+            puts opts
+            exit
+          end
+        end
+      end
     end
   end
 end

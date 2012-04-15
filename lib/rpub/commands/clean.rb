@@ -15,8 +15,28 @@ module RPub
 
       def parser
         OptionParser.new do |opts|
+          opts.banner = <<-EOS
+Usage: rpub clean [-d]'
+
+Clean up all generated files, such as the standard generated .epub
+file, package files and preview files.
+
+Options:
+EOS
+
+          opts.separator ''
+
           opts.on '-d', '--dry-run', 'Dry-run: only list files to be removed' do
             @dry_run = true
+          end
+
+          opts.separator ''
+          opts.separator 'Generic options:'
+          opts.separator ''
+
+          opts.on_tail '-h', '--help', 'Display this message' do
+            puts opts
+            exit
           end
         end
       end

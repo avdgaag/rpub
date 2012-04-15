@@ -12,6 +12,25 @@ module RPub
 
       def parser
         OptionParser.new do |opts|
+          opts.banner = <<-EOS
+Usage: rpub [subcommand] [options]
+
+Compile multiple Markdown-formatted input files into a machine-readable epub
+file for distribution as an ebook.
+
+Available subcommands:
+
+  compile
+  preview
+  clean
+  package
+  help
+EOS
+
+          opts.separator ''
+          opts.separator 'Generic options:'
+          opts.separator ''
+
           opts.on_tail '-v', '--version', 'Display version information' do
             puts "rpub #{RPub::VERSION}"
           end

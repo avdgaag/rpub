@@ -13,6 +13,10 @@ module RPub
         parser.parse!(options)
       end
 
+      def help
+        puts parser
+      end
+
     protected
 
       def parser
