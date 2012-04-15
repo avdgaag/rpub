@@ -1,7 +1,7 @@
 module RPub
   module Commands
     class Preview < Base
-      include Compile::Helpers
+      include CompilationHelpers
 
       identifier 'preview'
 

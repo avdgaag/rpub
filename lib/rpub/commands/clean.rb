@@ -1,8 +1,13 @@
 module RPub
   module Commands
     class Clean < Base
+      include CompilationHelpers
+
+      identifier 'clean'
+
       def invoke
         super
+        remove create_book.filename
         remove 'preview.html'
       end
 
