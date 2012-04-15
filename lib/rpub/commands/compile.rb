@@ -10,7 +10,7 @@ module RPub
         markdown_files.each(&book.method(:<<))
 
         Compressor.open(book.filename) do |zip|
-          Epub.new(book, layout).manifest_in(zip)
+          Epub.new(book, File.read(styles)).manifest_in(zip)
         end
       end
 
@@ -26,6 +26,14 @@ module RPub
             File.expand_path('../../../../support/layout.html', __FILE__)
           end
         end
+
+        def styles
+          @styles ||= if File.exists?('styles.css')
+            'styles.css'
+          else
+            File.expand_path('../../../../support/styles.css', __FILE__)
+          end
+        end
       end
       include Helpers
 
@@ -35,6 +43,10 @@ module RPub
         OptionParser.new do |opts|
           opts.on '-l', '--layout FILENAME', 'Specify an explicit layout file to use' do |filename|
             @layout = filename
+          end
+
+          opts.on '-s', '--styles FILENAME', 'Specify an explicit stylesheet file to use' do |filename|
+            @styles = filename
           end
 
           opts.on '-c', '--config FILENAME', 'Specify an explicit configuration file to use' do |filename|
