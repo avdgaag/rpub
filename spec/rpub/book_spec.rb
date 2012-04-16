@@ -43,4 +43,11 @@ describe RPub::Book do
       RPub::Book.new('bar', 'baz' => 'qux').should_not == subject.uid
     end
   end
+
+  describe '#images' do
+    before { subject << '![foo](bar)' << '![baz](qux)' << '![bla](qux)' }
+    it { should have(2).images }
+    its(:images) { should include('bar') }
+    its(:images) { should include('qux') }
+  end
 end

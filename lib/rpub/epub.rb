@@ -15,6 +15,9 @@ module RPub
       book.each do |chapter|
         target.compress_file File.join('OEBPS', chapter.filename), chapter.to_html
       end
+      book.images.each do |image|
+        target.compress_file File.join('OEBPS', image), File.read(image)
+      end
     end
   end
 end

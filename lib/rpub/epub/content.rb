@@ -3,6 +3,13 @@ module RPub
     class Content < XmlFile
       attr_reader :book
 
+      MEDIA_TYPES = {
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+        'jpg' => 'image/jpeg',
+        'svg' => 'image/svg+xml'
+      }
+
       def initialize(book)
         @book = book
         super()
@@ -26,6 +33,10 @@ module RPub
           xml.manifest do
             xml.item 'id' => 'ncx', 'href' => 'toc.ncx', 'media-type' => 'application/x-dtbncx+xml'
             xml.item 'id' => 'css', 'href' => 'styles.css', 'media-type' => 'text/css'
+
+            book.images.each do |image|
+              xml.item 'id' => File.basename(image), 'href' => image, 'media-type' => guess_media_type(image)
+            end
             book.chapters.each do |chapter|
               xml.item 'id' => chapter.id, 'href' => chapter.filename, 'media-type' => 'application/xhtml+xml'
             end
@@ -37,6 +48,12 @@ module RPub
             end
           end
         end
+      end
+
+      private
+
+      def guess_media_type(filename)
+        MEDIA_TYPES.fetch(filename[/\.(gif|png|jpe?g|svg)$/, 1]) { 'image/png' }
       end
     end
   end

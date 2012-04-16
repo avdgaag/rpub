@@ -25,6 +25,10 @@ module RPub
       chapters.each(&block)
     end
 
+    def images
+      map { |chapter| chapter.images }.flatten.uniq
+    end
+
     # Add textual content as a new Chapter to this book.
     #
     # This method returns the `Book` object iself, so you can chain multiple calls:

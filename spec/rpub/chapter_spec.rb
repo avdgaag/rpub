@@ -44,4 +44,12 @@ describe RPub::Chapter do
     let(:subject) { described_class.new('foo', 1, nil) }
     its(:to_html) { should == "<p>foo</p>\n" }
   end
+
+  describe '#images' do
+    let(:subject) { described_class.new('![alt](foo.png)', 1, 'document') }
+
+    it { should have(1).images }
+    its('images.first') { should == 'foo.png' }
+
+  end
 end

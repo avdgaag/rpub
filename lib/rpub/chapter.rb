@@ -38,6 +38,22 @@ module RPub
       @filename ||= id.to_s + '-' + title.gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.html'
     end
 
+    # @return [Array<String>] list of all image references
+    def images
+      @images ||= begin
+        collector = lambda do |c|
+          c.children.select { |e|
+            e.type == :img
+          }.map { |e|
+            e.attr['src']
+          } + c.children.map { |f|
+            collector.call(f)
+          }.flatten
+        end
+        collector.call(@document.root)
+      end
+    end
+
     # @return [String] Text of the first heading in this chapter
     def title
       @title ||= begin
