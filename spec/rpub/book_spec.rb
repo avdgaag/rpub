@@ -50,4 +50,13 @@ describe RPub::Book do
     its(:images) { should include('bar') }
     its(:images) { should include('qux') }
   end
+
+  describe '#outline' do
+    before { subject << '# foo' << '## bar' }
+    its(:outline) { should have(2).elements }
+    it 'should combine chapter outlines' do
+      subject.outline.first[0].should == 'chapter-0-foo.html'
+      subject.outline.first[1][0].text.should == 'foo'
+    end
+  end
 end

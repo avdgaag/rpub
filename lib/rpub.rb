@@ -2,6 +2,8 @@ require 'optparse'
 require 'fileutils'
 require 'yaml'
 require 'digest'
+require 'ostruct'
+require 'erb'
 
 require 'builder'
 require 'kramdown'
@@ -27,6 +29,7 @@ require 'rpub/xml_file'
 require 'rpub/epub/container'
 require 'rpub/epub/toc'
 require 'rpub/epub/content'
+require 'rpub/epub/html_toc'
 
 module RPub
   GEM_ROOT = File.expand_path('../../', __FILE__)

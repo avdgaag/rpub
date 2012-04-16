@@ -25,6 +25,14 @@ module RPub
       chapters.each(&block)
     end
 
+    def toc?
+      config.fetch('toc') { false }
+    end
+
+    def outline
+      inject([]) { |all, chapter| all << [chapter.filename, chapter.outline] }
+    end
+
     def images
       map { |chapter| chapter.images }.flatten.uniq
     end

@@ -50,6 +50,12 @@ describe RPub::Chapter do
 
     it { should have(1).images }
     its('images.first') { should == 'foo.png' }
+  end
 
+  describe '#outline' do
+    let(:subject) { described_class.new("# foo\n\nbla bla bla \n\n## bar\n\n# baz", 1, nil) }
+    it 'should list headings in order' do
+      subject.outline.map(&:text).should == %w[foo bar baz]
+    end
   end
 end

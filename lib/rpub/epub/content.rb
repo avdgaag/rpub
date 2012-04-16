@@ -37,6 +37,7 @@ module RPub
             book.images.each do |image|
               xml.item 'id' => File.basename(image), 'href' => image, 'media-type' => guess_media_type(image)
             end
+            xml.item 'id' => 'toc', 'href' => 'toc.html', 'media-type' => 'application/xhtml+xml'
             book.chapters.each do |chapter|
               xml.item 'id' => chapter.id, 'href' => chapter.filename, 'media-type' => 'application/xhtml+xml'
             end

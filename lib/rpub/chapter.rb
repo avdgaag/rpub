@@ -38,38 +38,47 @@ module RPub
       @filename ||= id.to_s + '-' + title.gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.html'
     end
 
+    # Ordered headers for this chapter, each header as an object responding
+    # to #level and #text.
+    #
+    # @return [Array<#text,#level>] list of headers for this chapter
+    def outline
+      @outline ||= elements(:header).map do |element|
+        OpenStruct.new({
+          :level => element.options[:level],
+          :text  => element_text(element),
+          :id    => Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
+        })
+      end
+    end
+
     # @return [Array<String>] list of all image references
     def images
-      @images ||= begin
-        collector = lambda do |c|
-          c.children.select { |e|
-            e.type == :img
-          }.map { |e|
-            e.attr['src']
-          } + c.children.map { |f|
-            collector.call(f)
-          }.flatten
-        end
-        collector.call(@document.root)
-      end
+      @images ||= elements(:img).map { |e| e.attr['src'] }
     end
 
     # @return [String] Text of the first heading in this chapter
     def title
       @title ||= begin
-        h = @document.root.children.find { |c| c.type == :header }
-        return 'untitled' unless h
-        collector = lambda do |c|
-          c.children.collect do |cc|
-            if cc.type == :text
-              cc.value
-            else
-              collector.call cc
-            end
-          end.join ''
-        end
-        title = collector.call(h) || 'untitled'
+        (heading = outline.first) ? heading.text : 'untitled'
       end
+    end
+
+  private
+
+    def element_text(element)
+      elements(:text, element).map { |e| e.value }.join
+    end
+
+    def elements(type, root = @document.root)
+      collector = lambda do |element|
+        element.children.select { |e|
+          e.type == type
+        } + element.children.map { |e|
+          collector.call(e)
+        }.flatten
+      end
+      collector.call(root)
     end
   end
 end
