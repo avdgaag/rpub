@@ -28,11 +28,20 @@ module RPub
             xml.dc :identifier,  book.uid, :id => 'BookId'
             xml.dc :rights,      book.rights
             xml.dc :description, book.description
+
+            if book.cover?
+              xml.meta :name => 'cover', :content => 'cover-image'
+            end
           end
 
           xml.manifest do
             xml.item 'id' => 'ncx', 'href' => 'toc.ncx', 'media-type' => 'application/x-dtbncx+xml'
             xml.item 'id' => 'css', 'href' => 'styles.css', 'media-type' => 'text/css'
+
+            if book.cover?
+              xml.item 'id' => 'cover', 'href' => 'cover.html', 'media-type' => 'application/xhtml+xml'
+              xml.item 'id' => 'cover-image', 'href' => book.cover_image, 'media-type' => guess_media_type(book.cover_image)
+            end
 
             book.images.each do |image|
               xml.item 'id' => File.basename(image), 'href' => image, 'media-type' => guess_media_type(image)
@@ -44,9 +53,14 @@ module RPub
           end
 
           xml.spine 'toc' => 'ncx' do
+            xml.itemref 'idref' => 'cover', 'linear' => 'no'
             book.chapters.each do |chapter|
               xml.itemref 'idref' => chapter.id
             end
+          end
+
+          xml.guide do
+            xml.reference :type => 'cover', :title => 'Cover', :href => 'cover.html'
           end
         end
       end

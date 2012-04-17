@@ -26,7 +26,11 @@ module RPub
     end
 
     def toc?
-      config.fetch('toc') { false }
+      !!config.fetch('toc') { false }
+    end
+
+    def cover?
+      !!config.fetch('cover_image') { false }
     end
 
     def outline
