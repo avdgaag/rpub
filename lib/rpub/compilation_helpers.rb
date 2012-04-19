@@ -11,25 +11,27 @@ module Rpub
     end
 
     def layout
-      @layout ||= if File.exist?('layout.html')
-                    'layout.html'
-                  else
-                    Rpub.support_file('layout.html')
-                  end
+      @layout ||= own_or_support_file('layout.html')
     end
 
     def styles
-      @styles ||= if File.exists?('styles.css')
-                    'styles.css'
-                  else
-                    Rpub.support_file('styles.css')
-                  end
+      @styles ||= own_or_support_file('styles.css')
     end
 
     def config
       @config_file ||= begin
         raise NoConfiguration unless File.exist?('config.yml')
         YAML.load_file('config.yml')
+      end
+    end
+
+  private
+
+    def own_or_support_file(filename)
+      if File.exists?(filename)
+        filename
+      else
+        Rpub.support_file(filename)
       end
     end
   end
