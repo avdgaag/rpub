@@ -27,7 +27,7 @@ describe Rpub::Commands::Preview do
   end
 
   it 'should do nothing when there are no files to preview' do
-    Dir.chdir FIXTURES_DIRECTORY
+    Dir.chdir File.join(FIXTURES_DIRECTORY, 'no_files')
     expect {
       Rpub::Commands::Preview.new.invoke
     }.to_not create_file('preview.html')

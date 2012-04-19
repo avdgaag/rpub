@@ -21,7 +21,7 @@ module Rpub
     def config
       @config_file ||= begin
         raise NoConfiguration unless File.exist?('config.yml')
-        YAML.load_file('config.yml')
+        YAML.load_file('config.yml') || {}
       end
     end
 
