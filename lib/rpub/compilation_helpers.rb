@@ -7,7 +7,7 @@ module Rpub
     end
 
     def markdown_files
-      @markdown_files ||= Dir['*.md'].sort.map(&File.method(:read))
+      @markdown_files ||= filter_exceptions(Dir['*.md']).sort.map(&File.method(:read))
     end
 
     def layout
@@ -26,6 +26,11 @@ module Rpub
     end
 
   private
+
+    def filter_exceptions(filenames)
+      return filenames unless config.has_key?('ignore')
+      filenames.reject(&config['ignore'].method(:include?))
+    end
 
     def own_or_support_file(filename)
       if File.exists?(filename)
