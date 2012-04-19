@@ -104,9 +104,18 @@ All the filenames listed under `package` are looked up in the root of your
 project directory. These files will be combined with the ebook in the
 `mybook.zip` file in your project directory.
 
-#### Automatic references
-
 #### Automatic table of contents
+
+Rpub automatically generates a table of contents for you, if you want it to. It
+does this by scanning all your markdown files for headings and listing them on
+a single page in the ebook. Each entry in the table of contents is linked to
+its appropriate heading in the chapter, and has various hooks for your
+stylesheet to determine its formatting.
+
+To enable the automatic generation of a table of contents, add the following
+configuration to your `config.yml` file:
+
+    toc: true
 
 #### Custom layout and styles
 
