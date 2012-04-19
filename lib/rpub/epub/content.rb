@@ -53,14 +53,18 @@ module Rpub
           end
 
           xml.spine 'toc' => 'ncx' do
-            xml.itemref 'idref' => 'cover', 'linear' => 'no'
+            if book.cover?
+              xml.itemref 'idref' => 'cover', 'linear' => 'no'
+            end
             book.chapters.each do |chapter|
               xml.itemref 'idref' => chapter.id
             end
           end
 
-          xml.guide do
-            xml.reference :type => 'cover', :title => 'Cover', :href => 'cover.html'
+          if book.cover?
+            xml.guide do
+              xml.reference :type => 'cover', :title => 'Cover', :href => 'cover.html'
+            end
           end
         end
       end
