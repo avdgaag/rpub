@@ -23,7 +23,6 @@ and Ruby gems, install the gem as follows from the command line:
 
 You can verify the gem has installed correctly by checking its version number:
 
-
     $ rpub -v
 
 If this generates an error, something has gone wrong. You should see something
@@ -79,8 +78,6 @@ easy viewing in any browser.
 [John gruber]: http://daringfireball.net
 
 ### Advanced features
-
-#### Watching for changes
 
 #### Packaging for distribution
 
@@ -146,9 +143,7 @@ or `preview` commands, using the `-l` or `-s` options:
 
 * `rpub compile` -- generate .epub file
 * `rpub package` -- create zip file with compiled book and other listed files
-* `rpub validate` -- compile, then validate
 * `rpub preview` -- generate preview HTML file
-* `rpub new` -- create skeleton directory tree
 * `rpub help` -- get help on subcommands
 * `rpub clean` -- remove generated files
 
