@@ -2,7 +2,11 @@ module Rpub
   # Delegate missing methods to keys in a Hash atribute on the current object.
   module HashDelegation
     def self.included(base)
-      def base.delegate_to_hash(attr)
+      base.extend ClassMethods
+    end
+
+    module ClassMethods
+      def delegate_to_hash(attr)
         define_method(:delegated_hash) { send attr }
       end
     end
