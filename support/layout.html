@@ -5,10 +5,12 @@
 <%
 extend ::Kramdown::Utils::Html
 title = ''
-h = @converter.root.children.find {|c| c.type == :header}
-if h
-  collector = lambda {|c| c.children.collect {|cc| cc.type == :text ? escape_html(cc.value, :text) : collector.call(cc)}.join('')}
-  title = collector.call(h)
+if @converter
+  h = @converter.root.children.find {|c| c.type == :header}
+  if h
+    collector = lambda {|c| c.children.collect {|cc| cc.type == :text ? escape_html(cc.value, :text) : collector.call(cc)}.join('')}
+    title = collector.call(h)
+  end
 end
 %>
 		<title><%= title %></title>
