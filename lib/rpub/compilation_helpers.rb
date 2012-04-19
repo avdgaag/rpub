@@ -1,7 +1,7 @@
 module Rpub
   module CompilationHelpers
     def create_book
-      book = Book.new(layout, YAML.load_file(config_file))
+      book = Book.new(layout, config)
       markdown_files.each(&book.method(:<<))
       book
     end
@@ -26,8 +26,11 @@ module Rpub
                   end
     end
 
-    def config_file
-      @config_file ||= 'config.yml'
+    def config
+      @config_file ||= begin
+        raise NoConfiguration unless File.exist?('config.yml')
+        YAML.load_file('config.yml')
+      end
     end
   end
 end

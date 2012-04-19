@@ -35,6 +35,8 @@ require 'rpub/epub/cover'
 module Rpub
   GEM_ROOT = File.expand_path('../../', __FILE__)
 
+  NoConfiguration = Class.new(StandardError)
+
   class InvalidSubcommand < StandardError
     def initialize(subcommand)
       super "Unknown subcommand: #{subcommand}"

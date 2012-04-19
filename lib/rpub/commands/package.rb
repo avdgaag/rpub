@@ -8,7 +8,6 @@ module Rpub
       def invoke
         super
         Compile.new(options).invoke
-        config = YAML.load_file(config_file)
         return unless config.has_key?('package_file')
         Compressor.open(config.fetch('package_file')) do |zip|
           zip.store_file create_book.filename, File.read(create_book.filename)
