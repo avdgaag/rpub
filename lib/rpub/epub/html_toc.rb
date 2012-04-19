@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   class Epub
     class HtmlToc < XmlFile
       attr_reader :book

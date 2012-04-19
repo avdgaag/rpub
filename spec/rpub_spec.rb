@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe RPub do
+describe Rpub do
   it 'should define a version number' do
-    RPub::VERSION.should =~ /\d+\.\d+\.\d+/
+    Rpub::VERSION.should =~ /\d+\.\d+\.\d+/
   end
 end

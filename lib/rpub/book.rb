@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   # The Book object wraps a collection of chapter objects and knows about its
   # ordering, the book metadata from the configuration file and the book output
   # filename.

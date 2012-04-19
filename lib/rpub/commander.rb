@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   module Commander
     def invoke(args = [])
       subcommand, *options = args

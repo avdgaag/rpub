@@ -3,4 +3,4 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 require 'rpub'
 
-RPub::Commander.invoke(ARGV)
+Rpub::Commander.invoke(ARGV)

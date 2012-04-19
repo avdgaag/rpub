@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RPub::Commands::Main do
+describe Rpub::Commands::Main do
   let(:buffer) { StringIO.new }
 
   it 'should default to help text' do
@@ -11,7 +11,7 @@ describe RPub::Commands::Main do
   it 'should raise error when a subcommand remains' do
     expect {
       described_class.new(['foo'], buffer).invoke
-    }.should raise_error(RPub::InvalidSubcommand)
+    }.should raise_error(Rpub::InvalidSubcommand)
   end
 
   it 'should print the version number' do

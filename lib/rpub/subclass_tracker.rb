@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   # Add tracking of subclasses to an existing class by extending it with
   # SubclassTracker.
   #

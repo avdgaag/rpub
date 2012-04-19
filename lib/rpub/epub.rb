@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   class Epub
     attr_reader :book, :styles
 

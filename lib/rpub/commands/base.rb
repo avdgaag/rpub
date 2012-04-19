@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   module Commands
     class Base
       extend SubclassTracker

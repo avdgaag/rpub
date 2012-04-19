@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   # Representation of a chapter in the book, from a single input file from the
   # project directory.  The Chapter object knows how to turn itself into HTML
   # suitable for writing to the epub archive with the appropriate identifiers

@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   module CompilationHelpers
     def create_book
       book = Book.new(layout, YAML.load_file(config_file))
@@ -14,7 +14,7 @@ module RPub
       @layout ||= if File.exist?('layout.html')
                     'layout.html'
                   else
-                    RPub.support_file('layout.html')
+                    Rpub.support_file('layout.html')
                   end
     end
 
@@ -22,7 +22,7 @@ module RPub
       @styles ||= if File.exists?('styles.css')
                     'styles.css'
                   else
-                    RPub.support_file('styles.css')
+                    Rpub.support_file('styles.css')
                   end
     end
 

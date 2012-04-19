@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   module Commands
     class Main < Base
 
@@ -32,7 +32,7 @@ EOS
           opts.separator ''
 
           opts.on_tail '-v', '--version', 'Display version information' do
-            puts "rpub #{RPub::VERSION}"
+            puts "rpub #{Rpub::VERSION}"
           end
 
           opts.on_tail '-h', '--help', 'Display command reference' do

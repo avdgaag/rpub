@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   # Wrapper around a `ZipOutputStream` object provided by the `rubyzip` gem.
   # This writes string contents straight into a zip file, without first saving
   # them to disk.

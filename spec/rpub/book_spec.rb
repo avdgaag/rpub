@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RPub::Book do
+describe Rpub::Book do
   let(:subject) { described_class.new('some_file', 'title' => 'My "Awesome" Title!', 'version' => '1.0.3') }
 
   it 'should start with an empty configuration' do
@@ -36,11 +36,11 @@ describe RPub::Book do
 
   describe '#uid' do
     it 'should change when chapters change' do
-      RPub::Book.new('bar').add_chapter('foo').should_not == subject.uid
+      Rpub::Book.new('bar').add_chapter('foo').should_not == subject.uid
     end
 
     it 'should change when config changes' do
-      RPub::Book.new('bar', 'baz' => 'qux').should_not == subject.uid
+      Rpub::Book.new('bar', 'baz' => 'qux').should_not == subject.uid
     end
   end
 

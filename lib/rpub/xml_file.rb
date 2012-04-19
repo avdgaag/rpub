@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   class XmlFile
     attr_reader :xml
 

@@ -32,7 +32,7 @@ require 'rpub/epub/content'
 require 'rpub/epub/html_toc'
 require 'rpub/epub/cover'
 
-module RPub
+module Rpub
   GEM_ROOT = File.expand_path('../../', __FILE__)
 
   class InvalidSubcommand < StandardError

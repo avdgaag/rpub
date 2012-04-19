@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RPub::Chapter do
+describe Rpub::Chapter do
   let(:subject) { described_class.new('foo', 1, 'document') }
 
   its(:content) { should == 'foo' }

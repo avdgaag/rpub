@@ -4,7 +4,7 @@ require './lib/rpub/version'
 Gem::Specification.new do |s|
   # Metadata
   s.name        = 'rpub'
-  s.version     = RPub::VERSION
+  s.version     = Rpub::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Arjan van der Gaag']
   s.email       = %q{arjan@arjanvandergaag.nl}

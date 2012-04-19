@@ -1,4 +1,4 @@
-module RPub
+module Rpub
   class Epub
     class Content < XmlFile
       attr_reader :book

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RPub::Commands::Clean do
+describe Rpub::Commands::Clean do
   before do
     Dir.chdir File.join(FIXTURES_DIRECTORY, 'clean')
   end
