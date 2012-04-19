@@ -5,3 +5,4 @@ bin/*
 .bundle
 .DS_Store
 *~
+pkg
