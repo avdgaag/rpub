@@ -48,7 +48,6 @@ module Rpub
   end
 
   KRAMDOWN_OPTIONS = {
-    :auto_ids => false,
     :coderay_line_numbers => nil
   }
 end
