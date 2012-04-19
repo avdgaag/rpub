@@ -25,19 +25,25 @@
         </ul>
       </header>
       <section>
-        <h1>Introduction</h1>
+
+<h1>Rpub – an ePub generator in Ruby <a href="http://travis-ci.org/avdgaag/rpub"><img src="https://secure.travis-ci.org/avdgaag/rpub.png?branch=master" alt="Build Status" /></a></h1>
+
+<p><strong>Note</strong> this project is still in development and not yet ready for general use.</p>
+
+<h2 id="introduction">Introduction</h2>
 
 <p>rPub is a command-line tool that generates a collection of plain text input
 files into an eBook in ePub format. It provides several related functions to
 make working with ePub files a little easier:</p>
 
 <ul>
-<li>Generation of table of contents</li>
-<li>Tracking of references to tables or figures</li>
-<li>Validation of output file</li>
-<li>Packaging your eBook in an archive with additional README file</li>
-<li>Very simple version control</li>
-</ul><h1>Installation</h1>
+  <li>Generation of table of contents</li>
+  <li>Tracking of references to tables or figures</li>
+  <li>Validation of output file</li>
+  <li>Packaging your eBook in an archive with additional README file</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
 
 <p>rPub is distributed as a Ruby gem, which should be installed on most Macs and
 Linux systems. Once you have ensured you have a working installation of Ruby
@@ -54,9 +60,9 @@ and Ruby gems, install the gem as follows from the command line:</p>
 <p>If this generates an error, something has gone wrong. You should see something
 along the lines of <code>rpub 1.0.0</code>.</p>
 
-<h1>Usage</h1>
+<h2 id="usage">Usage</h2>
 
-<h2>Basics</h2>
+<h3 id="basics">Basics</h3>
 
 <p>ePubs are basically collections of HTML files, combined in a single archive
 according to a set of predefined rules. rPub generates these files for you from
@@ -83,10 +89,10 @@ title: My new book
 version: 0.1.0
 </code></pre>
 
-<p>This file is written in [YAML][] and sets basic properties of your book project.</p>
+<p>This file is written in <a href="http://yaml.org">YAML</a> and sets basic properties of your book project.</p>
 
-<p>To make sure the book you generated is <em>valid</em> -- meaning it is likely that most
-readers out there will be able to read it -- you can use the special <code>validate</code>
+<p>To make sure the book you generated is <em>valid</em> – meaning it is likely that most
+readers out there will be able to read it – you can use the special <code>validate</code>
 command:</p>
 
 <pre><code>$ rpub validate
@@ -104,74 +110,117 @@ application is cumbersome, rPub can generate a simple preview document for you:<
 to your ePub file. This is the entire text of your book as a single web page for
 easy viewing in any browser.</p>
 
-<h2>Advanced features</h2>
+<h3 id="advanced-features">Advanced features</h3>
 
-<h3>Watching for changes</h3>
+<h4 id="packaging-for-distribution">Packaging for distribution</h4>
 
-<h3>Packaging for distribution</h3>
+<p>Often you want to distribute your ebook over the internet, along with some
+extra files. You’ll probably want to include a README file, a license or
+references to extra online resources. A <code>package</code> task is defined to generate a
+single compressed archive file from your generated ebook along with such
+additional files.</p>
 
-<h3>Very simple version control</h3>
+<p>You list the files to include with your ebook in your <code>config.yml</code> file, along
+with the resulting packaged file name:</p>
 
-<h3>Automatic references</h3>
+<pre><code>---
+package_file: mybook.zip
+package:
+  - README
+  - license.txt
+  - code-samples.rb
+</code></pre>
 
-<h3>Automatic table of contents</h3>
+<p>All the filenames listed under <code>package</code> are looked up in the root of your
+project directory. These files will be combined with the ebook in the
+<code>mybook.zip</code> file in your project directory.</p>
 
-<h3>Custom layout and styles</h3>
+<h4 id="automatic-table-of-contents">Automatic table of contents</h4>
 
-<h2>Command reference</h2>
+<p>Rpub automatically generates a table of contents for you, if you want it to. It
+does this by scanning all your markdown files for headings and listing them on
+a single page in the ebook. Each entry in the table of contents is linked to
+its appropriate heading in the chapter, and has various hooks for your
+stylesheet to determine its formatting.</p>
+
+<p>To enable the automatic generation of a table of contents, add the following
+configuration to your <code>config.yml</code> file:</p>
+
+<pre><code>toc: true
+</code></pre>
+
+<h4 id="custom-layout-and-styles">Custom layout and styles</h4>
+
+<p>When you compile a set of Markdown files to an ePub file, rpub uses a default
+HTML layout and set of styles to determine the look and feel of the book. These
+will do fine for most cases, but you can provide your own, if you are so
+inclined.</p>
+
+<p>Simply define a <code>layout.html</code> and/or <code>styles.css</code> in your project directory.
+Your HTML file will be parsed with Erb, an so you can include your writing
+using the <code>yield</code> method:</p>
+
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Note</strong>: despite the name ‘html’ and <code>.html</code> extension, your file actually has
+to be XHTML-compliant.</p>
+
+<p>You can also provide custom layouts or styles to use when invoking the <code>compile</code>
+or <code>preview</code> commands, using the <code>-l</code> or <code>-s</code> options:</p>
+
+<pre><code>$ rpub compile -l /tmp/my-layout.html
+</code></pre>
+
+<h3 id="command-reference">Command reference</h3>
 
 <ul>
-<li>
-<code>rpub compile</code> -- generate .epub file</li>
-<li>
-<code>rpub package</code> -- create zip file with compiled book and other listed files</li>
-<li>
-<code>rpub validate</code> -- compile, then validate</li>
-<li>
-<code>rpub preview</code> -- generate preview HTML file</li>
-<li>
-<code>rpub new</code> -- create skeleton directory tree</li>
-<li>
-<code>rpub help</code> -- get help on subcommands</li>
-<li>
-<code>rpub clean</code> -- remove generated files</li>
-<li>
-<code>rpub release</code> -- package and tag in Git</li>
-<li>
-<code>rpub snapshot</code> -- commit changes in git after validation</li>
-</ul><h2>Examples</h2>
+  <li><code>rpub compile</code> – generate .epub file</li>
+  <li><code>rpub package</code> – create zip file with compiled book and other listed files</li>
+  <li><code>rpub preview</code> – generate preview HTML file</li>
+  <li><code>rpub help</code> – get help on subcommands</li>
+  <li><code>rpub clean</code> – remove generated files</li>
+</ul>
 
-<p>See the <a href="https://github.com/avdgaag/rpub/tree/master/example">examples directory</a> for two example projects.</p>
+<h3 id="examples">Examples</h3>
 
-<h1>Other</h1>
+<p>See the <a href="https://github.com/avdgaag/rpub/example">examples directory</a> for two example projects.</p>
 
-<h2>Note on Patches/Pull Requests</h2>
+<h2 id="other">Other</h2>
+
+<h3 id="note-on-patchespull-requests">Note on Patches/Pull Requests</h3>
 
 <ol>
-<li>Fork the project.</li>
-<li>Make your feature addition or bug fix.</li>
-<li>Add tests for it. This is important so I don't break it in a future version
+  <li>Fork the project.</li>
+  <li>Make your feature addition or bug fix.</li>
+  <li>Add tests for it. This is important so I don’t break it in a future version
 unintentionally.</li>
-<li>Commit, do not mess with rakefile, version, or history. (if you want to have
+  <li>Commit, do not mess with rakefile, version, or history. (if you want to have
 your own version, that is fine but bump version in a commit by itself I can
 ignore when I pull)</li>
-<li>Send me a pull request. Bonus points for topic branches.</li>
-</ol><h2>Issues</h2>
+  <li>Send me a pull request. Bonus points for topic branches.</li>
+</ol>
+
+<h3 id="issues">Issues</h3>
 
 <p>Please report any issues, defects or suggestions in the <a href="https://github.com/avdgaag/rpub/issues">Github issue
 tracker</a>.</p>
 
-<h2>What has changed?</h2>
+<h3 id="what-has-changed">What has changed?</h3>
 
-<p>See the <a href="https://github.com/avdgaag/rpub/blob/master/HISTORY.mhttps://github.com/avdgaag/rpub/blob/master/HISTORY.md">HISTORY</a> file for a detailed changelog.</p>
+<p>See the <a href="https://github.com/avdgaag/rpub/HISTORY">HISTORY</a> file for a detailed changelog.</p>
 
-<h2>Credits</h2>
+<h3 id="credits">Credits</h3>
 
-<p>Created by: Arjan van der Gaag<br>
-URL: <a href="http://arjanvandergaag.nl">http://arjanvandergaag.nl</a><br>
-Project homepage: <a href="http://avdgaag.github.com/rpub">http://avdgaag.github.com/rpub</a><br>
-Date: april 2012<br>
-License: <a href="LICENSE">MIT-license</a> (same as Ruby)</p>
+<p>Created by: Arjan van der Gaag<br />
+URL: <a href="http://arjanvandergaag.nl">http://arjanvandergaag.nl</a><br />
+Project homepage: <a href="http://avdgaag.github.com/rpub">http://avdgaag.github.com/rpub</a><br />
+Date: april 2012<br />
+License: <a href="https://github.com/avdgaag/rpub/LICENSE">MIT-license</a> (same as Ruby)</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/avdgaag">avdgaag</a></p>
