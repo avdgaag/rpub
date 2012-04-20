@@ -19,6 +19,9 @@ module Rpub
       if book.has_toc?
         target.compress_file 'OEBPS/toc.html', toc { HtmlToc.new(book).render }
       end
+      book.fonts.each do |font|
+        target.compress_file File.join('OEBPS', font), File.read(font)
+      end
       book.each do |chapter|
         target.compress_file File.join('OEBPS', chapter.filename), chapter.to_html
       end

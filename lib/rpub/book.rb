@@ -25,6 +25,11 @@ module Rpub
       chapters.each(&block)
     end
 
+    def has_fonts?
+      fonts = config.fetch('fonts') { [] }
+      fonts.respond_to?(:any?) && fonts.any?
+    end
+
     def has_toc?
       !!config.fetch('toc') { false }
     end

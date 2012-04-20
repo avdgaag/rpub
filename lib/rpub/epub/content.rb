@@ -38,6 +38,12 @@ module Rpub
             xml.item 'id' => 'ncx', 'href' => 'toc.ncx', 'media-type' => 'application/x-dtbncx+xml'
             xml.item 'id' => 'css', 'href' => 'styles.css', 'media-type' => 'text/css'
 
+            if book.has_fonts?
+              book.fonts.each do |font|
+                xml.item 'id' => File.basename(font), 'href' => font, 'media-type' => 'font/opentype'
+              end
+            end
+
             if book.has_cover?
               xml.item 'id' => 'cover', 'href' => 'cover.html', 'media-type' => 'application/xhtml+xml'
               xml.item 'id' => 'cover-image', 'href' => book.cover_image, 'media-type' => guess_media_type(book.cover_image)

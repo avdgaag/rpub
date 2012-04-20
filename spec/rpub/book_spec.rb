@@ -34,6 +34,24 @@ describe Rpub::Book do
     end
   end
 
+  describe '#has_fonts?' do
+    it 'should not have a font without a config key' do
+      described_class.new(nil, {}).should_not have_fonts
+    end
+
+    it 'should not have a font with a config key that is false' do
+      described_class.new(nil, { 'fonts' => false }).should_not have_fonts
+    end
+
+    it 'should not have a font with a config key that is empty' do
+      described_class.new(nil, { 'fonts' => [] }).should_not have_fonts
+    end
+
+    it 'should have a font with a non-empty config key' do
+      described_class.new(nil, { 'fonts' => ['foo']}).should have_fonts
+    end
+  end
+
   describe '#uid' do
     it 'should change when chapters change' do
       Rpub::Book.new('bar').add_chapter('foo').should_not == subject.uid
