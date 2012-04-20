@@ -18,6 +18,7 @@ describe Rpub::Commands::Preview do
     it { should include('<p>bar</p>') }
     it { should match(/foo.*bar/m) }
     it { should match(/<head>/) }
+    it { should match(/<style>/) }
   end
 
   it 'should create new preview file' do

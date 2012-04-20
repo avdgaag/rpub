@@ -15,11 +15,16 @@ module Rpub
         return unless markdown_files.any?
         concatenation = markdown_files.join("\n")
         File.open(@filename, 'w') do |f|
-          f.write Kramdown::Document.new(concatenation, KRAMDOWN_OPTIONS.merge(:template => layout)).to_html
+          f.write move_styles_inline(Kramdown::Document.new(concatenation, KRAMDOWN_OPTIONS.merge(:template => layout)).to_html)
         end
       end
 
     private
+
+      def move_styles_inline(html)
+        style_block = %Q{<style>\n#{File.read(styles)}\n</style>}
+        html.gsub %r{</head>}, style_block + "\n</head>"
+      end
 
       def parser
         OptionParser.new do |opts|
