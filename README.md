@@ -139,11 +139,17 @@ or `preview` commands, using the `-l` or `-s` options:
 
     $ rpub compile -l /tmp/my-layout.html
 
+If you like the default layout or styles, but want to adapt them, you can copy
+those files into your project using the `generate` subcommand:
+
+    $ rpub generate
+
 ### Command reference
 
 * `rpub compile` -- generate .epub file
 * `rpub package` -- create zip file with compiled book and other listed files
 * `rpub preview` -- generate preview HTML file
+* `rpub generate` -- copy default layout.html, styles.css and config.yml
 * `rpub help` -- get help on subcommands
 * `rpub clean` -- remove generated files
 
