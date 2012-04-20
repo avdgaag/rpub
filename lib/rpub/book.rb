@@ -25,11 +25,11 @@ module Rpub
       chapters.each(&block)
     end
 
-    def toc?
+    def has_toc?
       !!config.fetch('toc') { false }
     end
 
-    def cover?
+    def has_cover?
       !!config.fetch('cover_image') { false }
     end
 

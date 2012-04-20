@@ -12,11 +12,11 @@ module Rpub
       target.compress_file 'OEBPS/content.opf', Content.new(book)
       target.compress_file 'OEBPS/toc.ncx', Toc.new(book)
       target.compress_file 'OEBPS/styles.css', styles
-      if book.cover?
+      if book.has_cover?
         target.compress_file 'OEBPS/cover.html', Cover.new(book)
         target.compress_file File.join('OEBPS', book.cover_image), File.read(book.cover_image)
       end
-      if book.toc?
+      if book.has_toc?
         target.compress_file 'OEBPS/toc.html', toc { HtmlToc.new(book).render }
       end
       book.each do |chapter|

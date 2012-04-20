@@ -44,6 +44,45 @@ describe Rpub::Book do
     end
   end
 
+  describe '#outline' do
+    it 'should return empty array when there are no chapters' do
+      subject.outline.should be_empty
+    end
+
+    it 'should return combination of all chapter outlines with filename' do
+      subject << '# foo' << '# bar'
+      subject.outline.should have(2).elements
+    end
+  end
+
+  describe '#has_cover?' do
+    it 'should not have a cover without a config key' do
+      described_class.new(nil, {}).should_not have_cover
+    end
+
+    it 'should not have a cover with a config key that is false' do
+      described_class.new(nil, { 'cover_image' => false }).should_not have_cover
+    end
+
+    it 'should have a cover with a config key' do
+      described_class.new(nil, { 'cover_image' => true}).should have_cover
+    end
+  end
+
+  describe '#has_toc?' do
+    it 'should not have a toc without a config key' do
+      described_class.new(nil, {}).should_not have_toc
+    end
+
+    it 'should not have a toc with a config key that is false' do
+      described_class.new(nil, { 'toc' => false }).should_not have_toc
+    end
+
+    it 'should have a toc with a config key' do
+      described_class.new(nil, { 'toc' => true }).should have_toc
+    end
+  end
+
   describe '#images' do
     before { subject << '![foo](bar)' << '![baz](qux)' << '![bla](qux)' }
     it { should have(2).images }

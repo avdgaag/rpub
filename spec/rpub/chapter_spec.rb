@@ -29,6 +29,26 @@ describe Rpub::Chapter do
     its(:filename) { should == 'chapter-1-untitled.html' }
   end
 
+  describe '#outline' do
+    context 'when there are no headings' do
+      let(:subject) { described_class.new('foo', 1, 'document') }
+      its(:outline) { should have(0).elements }
+      its(:outline) { should be_empty }
+    end
+
+    context 'when there are headings' do
+      let(:subject) { described_class.new('# foo', 1, 'document') }
+      its(:outline) { should have(1).elements }
+
+      context 'a single heading entry' do
+        let(:subject) { described_class.new('# foo', 1, 'document').outline.first }
+        its(:level) { should == 1 }
+        its(:text)  { should == 'foo' }
+        its(:id)    { should == 'foo' }
+      end
+    end
+  end
+
   describe '#title' do
     context 'without a suitable markdown title' do
       its(:title) { should == 'untitled' }
