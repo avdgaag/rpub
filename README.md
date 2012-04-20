@@ -57,14 +57,6 @@ in a special configuration file called `config.yml`:
 
 This file is written in [YAML](http://yaml.org) and sets basic properties of your book project.
 
-To make sure the book you generated is _valid_ -- meaning it is likely that most
-readers out there will be able to read it -- you can use the special `validate`
-command:
-
-    $ rpub validate
-
-rPub will report any errors it finds. No output means everything is alright.
-
 Since regenerating your ePub file and opening it in a suitable reader
 application is cumbersome, rPub can generate a simple preview document for you:
 
