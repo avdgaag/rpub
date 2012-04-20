@@ -1,0 +1,14 @@
+---
+title:       'Untitled book'
+description: 'No description'
+creator:     'Anonymous'
+publisher:   'Untitled publisher'
+subject:     'General'
+language:    'en'
+rights:      'public comain'
+version:     '0.0.0'
+toc:         true
+ignore:
+ - README.md
+package:
+ - README.md
