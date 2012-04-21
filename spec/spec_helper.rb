@@ -1,4 +1,5 @@
 require 'rpub'
+require 'nokogiri'
 
 FIXTURES_DIRECTORY = File.expand_path('../fixtures', __FILE__)
 
@@ -17,5 +18,11 @@ RSpec::Matchers.define :create_file do |filename|
     block.call
     after = File.exist?(filename)
     !before && after
+  end
+end
+
+RSpec::Matchers.define :have_xpath do |xpath, *args|
+  match do |xml|
+    Nokogiri::XML(xml).xpath(xpath, *args).any?
   end
 end

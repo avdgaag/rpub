@@ -9,10 +9,10 @@ module Rpub
       end
 
       def render
-        xml.h1 'Table of Contents'
-        xml.div :class => 'toc' do
-          book.outline.each do |(filename, headings)|
-            headings.each do |heading|
+        xml.div :id => 'toc' do
+          xml.h1 'Table of Contents'
+          xml.div :class => 'toc' do
+            book.outline.each do |(filename, heading)|
               xml.div :class => "level-#{heading.level}" do
                 xml.a heading.text, :href => [filename, heading.html_id].join('#')
               end
