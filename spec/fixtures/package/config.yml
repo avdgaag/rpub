@@ -1,0 +1,15 @@
+
+---
+title:       'Untitled book'
+description: 'No description'
+creator:     'Anonymous'
+publisher:   'Untitled publisher'
+subject:     'General'
+language:    'en'
+rights:      'public comain'
+version:     '0.0.0'
+ignore:
+ - README.md
+package_file: package.zip
+package:
+ - README.md

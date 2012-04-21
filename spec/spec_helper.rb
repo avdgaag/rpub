@@ -15,11 +15,11 @@ RSpec::Matchers.define :remove_file do |filename|
   end
 end
 
-RSpec::Matchers.define :create_file do |filename|
+RSpec::Matchers.define :create_file do |*filenames|
   match do |block|
-    before = File.exist?(filename)
+    before = filenames.all?(&File.method(:exist?))
     block.call
-    after = File.exist?(filename)
+    after = filenames.all?(&File.method(:exist?))
     !before && after
   end
 end
