@@ -7,6 +7,7 @@ describe Rpub::Commands::Package do
 
   after do
     File.unlink('package.zip') if File.exist?('package.zip')
+    File.unlink('untitled-book-0.0.0.epub') if File.exist?('untitled-book-0.0.0.epub')
   end
 
   it 'should generate an archive' do
