@@ -149,6 +149,10 @@ those files into your project using the `generate` subcommand:
 
 See the [examples directory](https://github.com/avdgaag/rpub/example) for two example projects.
 
+### Documentation
+
+See the inline [API docs](http://rubydoc.info/github/avdgaag/rpub/master/frames) for more information.
+
 ## Other
 
 ### Note on Patches/Pull Requests
