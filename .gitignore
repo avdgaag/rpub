@@ -7,3 +7,4 @@ bin/*
 *~
 pkg
 coverage
+_site
