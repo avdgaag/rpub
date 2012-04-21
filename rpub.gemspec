@@ -16,10 +16,9 @@ files into an eBook in ePub format. It provides several related functions to
 make working with ePub files a little easier:
 
 * Generation of table of contents
-* Tracking of references to tables or figures
-* Validation of output file
 * Packaging your eBook in an archive with additional README file
-* Very simple version control
+* Embedding fonts
+* Easy previewing as you write
 EOS
 
   # Files
