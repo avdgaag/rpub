@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start
+if RUBY_VERSION >= '1.9'
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'rpub'
 require 'nokogiri'
