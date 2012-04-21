@@ -13,7 +13,7 @@ describe Rpub::Epub::HtmlToc do
   end
 
   context 'with heading in the outline' do
-    let(:outline) { [['foo.html', double('heading', :text => 'link', :html_id => 'bar', :level => 1)]] }
+    let(:outline) { [['foo.html', [double('heading', :text => 'link', :html_id => 'bar', :level => 1)]]] }
     it { should have_xpath('/div/div/div[@class="level-1"]/a[@href="foo.html#bar"][text()="link"]') }
   end
 end
