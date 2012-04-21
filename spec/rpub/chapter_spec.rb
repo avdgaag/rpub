@@ -21,8 +21,8 @@ describe Rpub::Chapter do
     end
   end
 
-  describe '#id' do
-    its(:id) { should == 'chapter-1' }
+  describe '#xml_id' do
+    its(:xml_id) { should == 'chapter-1' }
   end
 
   describe '#filename' do
@@ -42,9 +42,9 @@ describe Rpub::Chapter do
 
       context 'a single heading entry' do
         let(:subject) { described_class.new('# foo', 1, 'document').outline.first }
-        its(:level) { should == 1 }
-        its(:text)  { should == 'foo' }
-        its(:id)    { should == 'foo' }
+        its(:level)   { should == 1 }
+        its(:text)    { should == 'foo' }
+        its(:html_id) { should == 'foo' }
       end
     end
   end

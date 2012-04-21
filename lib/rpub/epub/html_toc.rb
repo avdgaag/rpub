@@ -14,7 +14,7 @@ module Rpub
           book.outline.each do |(filename, headings)|
             headings.each do |heading|
               xml.div :class => "level-#{heading.level}" do
-                xml.a heading.text, :href => [filename, heading.id].join('#')
+                xml.a heading.text, :href => [filename, heading.html_id].join('#')
               end
             end
           end

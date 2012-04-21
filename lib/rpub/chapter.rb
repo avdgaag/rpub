@@ -20,11 +20,11 @@ module Rpub
 
     # @return [String] Unique identifier for this chapter.
     def uid
-      @uid ||= Digest::SHA1.hexdigest([content, id.to_s, layout].join)
+      @uid ||= Digest::SHA1.hexdigest([content, xml_id.to_s, layout].join)
     end
 
     # @return [String] XML-friendly slug for this chapter based on its number.
-    def id
+    def xml_id
       @id ||= "chapter-#{number}"
     end
 
@@ -35,7 +35,7 @@ module Rpub
 
     # @return [String] name for the file in the zip to use, based on the title
     def filename
-      @filename ||= id.to_s + '-' + title.gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.html'
+      @filename ||= xml_id.to_s + '-' + title.gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.html'
     end
 
     # Ordered headers for this chapter, each header as an object responding
@@ -45,9 +45,9 @@ module Rpub
     def outline
       @outline ||= elements(:header).map do |element|
         OpenStruct.new({
-          :level => element.options[:level],
-          :text  => element_text(element),
-          :id    => Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
+          :level   => element.options[:level],
+          :text    => element_text(element),
+          :html_id => Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
         })
       end
     end
