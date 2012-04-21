@@ -21,7 +21,7 @@ module Rpub
           xml.docTitle { xml.text book.title }
           xml.navMap do
             book.chapters.each_with_index do |chapter, n|
-              xml.navPoint :id => chapter.id, :playOrder => n do
+              xml.navPoint :id => chapter.xml_id, :playOrder => n do
                 xml.navLabel { xml.text chapter.title }
                 xml.content :src => chapter.filename
               end

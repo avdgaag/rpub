@@ -17,7 +17,7 @@ describe Rpub::Epub::Toc do
   end
 
   context 'with chapters' do
-    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :id => 'id')] }
+    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :xml_id => 'id')] }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="id"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename"]') }

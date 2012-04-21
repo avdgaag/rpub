@@ -58,7 +58,7 @@ module Rpub
             end
 
             book.chapters.each do |chapter|
-              xml.item 'id' => chapter.id, 'href' => chapter.filename, 'media-type' => 'application/xhtml+xml'
+              xml.item 'id' => chapter.xml_id, 'href' => chapter.filename, 'media-type' => 'application/xhtml+xml'
             end
           end
 
@@ -67,7 +67,7 @@ module Rpub
               xml.itemref 'idref' => 'cover', 'linear' => 'no'
             end
             book.chapters.each do |chapter|
-              xml.itemref 'idref' => chapter.id
+              xml.itemref 'idref' => chapter.xml_id
             end
           end
 

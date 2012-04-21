@@ -67,7 +67,7 @@ describe Rpub::Epub::Content do
   end
 
   context 'when the book has chapters' do
-    let(:chapter) { double('chapter', :filename => 'chapter.html', :id => 'chapter1') }
+    let(:chapter) { double('chapter', :filename => 'chapter.html', :xml_id => 'chapter1') }
     before { book.stub! :chapters => [chapter] }
     it { should have_xpath('/xmlns:package/xmlns:manifest/xmlns:item[@id="chapter1"][@href="chapter.html"][@media-type="application/xhtml+xml"]') }
     it { should have_xpath('/xmlns:package/xmlns:spine[@toc="ncx"]/xmlns:itemref[@idref="chapter1"]') }
