@@ -2,7 +2,7 @@ module Rpub
   # Add tracking of subclasses to an existing class by extending it with
   # SubclassTracker.
   #
-  # This allows you to set an identifier in a subclass using the `identifier`
+  # This allows you to set an identifier in a subclass using the +identifier+
   # macro, and find subclasses based on that value.
   #
   # Example:
@@ -19,7 +19,7 @@ module Rpub
   #     ParentClass.matching('bar') # => raises SubclassTracker::NoSuchSubclass
   #
   # Note that you don't HAVE to set an identifier. If you don't, your child
-  # class will never be found by `#matching`.
+  # class will never be found by +#matching+.
   module SubclassTracker
     class NoSuchSubclass < StandardError
       def initialize(subcommand)

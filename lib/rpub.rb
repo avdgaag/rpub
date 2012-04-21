@@ -44,6 +44,7 @@ module Rpub
     end
   end
 
+  # @return [String] full path to a file that was relative to the gem support directory
   def self.support_file(path)
     File.join(GEM_ROOT, 'support', path)
   end
