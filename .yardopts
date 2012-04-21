@@ -1,5 +1,5 @@
 --no-private
---title "rPub, a simple ePub generator library in Ruby"
+--title "Rpub, a simple ePub generator library in Ruby"
 --readme README.md
 -
 HISTORY.md
