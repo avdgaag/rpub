@@ -1,10 +1,8 @@
-# rPub -- an ePub generator in Ruby [![Build Status](https://secure.travis-ci.org/avdgaag/rpub.png?branch=master)](http://travis-ci.org/avdgaag/rpub)
-
-**Note** this project is still in development and not yet ready for general use.
+# Rpub -- an ePub generator in Ruby [![Build Status](https://secure.travis-ci.org/avdgaag/rpub.png?branch=master)](http://travis-ci.org/avdgaag/rpub)
 
 ## Introduction
 
-rPub is a command-line tool that generates a collection of plain text input
+Rpub is a command-line tool that generates a collection of plain text input
 files into an eBook in ePub format. It provides several related functions to
 make working with ePub files a little easier:
 
@@ -15,7 +13,7 @@ make working with ePub files a little easier:
 
 ## Installation
 
-rPub is distributed as a Ruby gem, which should be installed on most Macs and
+Rpub is distributed as a Ruby gem, which should be installed on most Macs and
 Linux systems. Once you have ensured you have a working installation of Ruby
 and Ruby gems, install the gem as follows from the command line:
 
@@ -33,7 +31,7 @@ along the lines of `rpub 1.0.0`.
 ### Basics
 
 ePubs are basically collections of HTML files, combined in a single archive
-according to a set of predefined rules. rPub generates these files for you from
+according to a set of predefined rules. Rpub generates these files for you from
 simple text files written in [Markdown][], a very readable markup language created
 by [John Gruber][]. This very README file is an example of a Markdown document.
 
@@ -58,7 +56,7 @@ in a special configuration file called `config.yml`:
 This file is written in [YAML](http://yaml.org) and sets basic properties of your book project.
 
 Since regenerating your ePub file and opening it in a suitable reader
-application is cumbersome, rPub can generate a simple preview document for you:
+application is cumbersome, Rpub can generate a simple preview document for you:
 
     $ rpub preview
 
