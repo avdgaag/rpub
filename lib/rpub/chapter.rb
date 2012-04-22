@@ -30,7 +30,7 @@ module Rpub
 
     # @return [String] content parsed to HTML by the markdown engine.
     def to_html
-      @to_html ||= @document.to_html
+      @to_html ||= Typogruby.improve(@document.to_html)
     end
 
     # @return [String] name for the file in the zip to use, based on the title

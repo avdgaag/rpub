@@ -14,7 +14,7 @@ module Rpub
         super
         return unless markdown_files.any?
         File.open(@filename, 'w') do |f|
-          f.write move_styles_inline(concatenated_document.to_html)
+          f.write move_styles_inline(Typogruby.improve(concatenated_document.to_html))
         end
       end
 

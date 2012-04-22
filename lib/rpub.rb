@@ -10,6 +10,7 @@ require 'kramdown'
 require 'zip/zip'
 require 'nokogiri'
 require 'textstats'
+require 'typogruby'
 
 require 'rpub/version'
 require 'rpub/subclass_tracker'
