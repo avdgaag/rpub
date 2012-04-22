@@ -4,6 +4,13 @@ module Rpub
   # from the current project directory.
   module CompilationHelpers
 
+    def concatenated_document
+      Kramdown::Document.new(
+        markdown_files.join("\n"),
+        KRAMDOWN_OPTIONS.merge(:template => layout)
+      )
+    end
+
     # Factory method for {Rpub::Book} objects, loading every markdown file as a
     # chapter.
     #

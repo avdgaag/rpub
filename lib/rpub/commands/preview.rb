@@ -13,9 +13,8 @@ module Rpub
       def invoke
         super
         return unless markdown_files.any?
-        concatenation = markdown_files.join("\n")
         File.open(@filename, 'w') do |f|
-          f.write move_styles_inline(Kramdown::Document.new(concatenation, KRAMDOWN_OPTIONS.merge(:template => layout)).to_html)
+          f.write move_styles_inline(concatenated_document.to_html)
         end
       end
 
