@@ -35,20 +35,16 @@ describe Rpub::Book do
   end
 
   describe '#has_fonts?' do
-    it 'should not have a font without a config key' do
+    it 'should not have a font by default' do
       described_class.new(nil, {}).should_not have_fonts
     end
 
-    it 'should not have a font with a config key that is false' do
-      described_class.new(nil, { 'fonts' => false }).should_not have_fonts
+    it 'should not have a font with an empty array' do
+      described_class.new(nil, nil, []).should_not have_fonts
     end
 
-    it 'should not have a font with a config key that is empty' do
-      described_class.new(nil, { 'fonts' => [] }).should_not have_fonts
-    end
-
-    it 'should have a font with a non-empty config key' do
-      described_class.new(nil, { 'fonts' => ['foo']}).should have_fonts
+    it 'should have a font with a non-empty array' do
+      described_class.new(nil, nil, ['foo']).should have_fonts
     end
   end
 

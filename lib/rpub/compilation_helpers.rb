@@ -17,7 +17,7 @@ module Rpub
     # @see #markdown_files
     # @return [Rpub::Book]
     def create_book
-      book = Book.new(layout, config)
+      book = Book.new(layout, config, fonts)
       markdown_files.each(&book.method(:<<))
       book
     end
@@ -52,6 +52,10 @@ module Rpub
     end
 
   private
+
+    def fonts
+      @fonts ||= File.read(styles).scan(/url\((?:'|")?([^'")]+\.otf)(?:'|")?\)/i).flatten
+    end
 
     def filter_exceptions(filenames)
       return filenames unless config.has_key?('ignore')

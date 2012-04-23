@@ -11,14 +11,17 @@ module Rpub
     # @return [Hash] The hash of configuration options read from the config.yml file.
     attr_reader :config
 
-    # @return [Array] List of chapters, one for every input markdown file.
+    # @return [Array<Chapter>] List of chapters, one for every input markdown file.
     attr_reader :chapters
+
+    # @return [Array<String>] all the fonts referred to in the stylesheet
+    attr_reader :fonts
 
     # @return [String] the path the layout HTML file to use to wrap the chapter in.
     attr_reader :layout
 
-    def initialize(layout, config = {})
-      @chapters, @config, @layout = [], config, layout
+    def initialize(layout, config = {}, fonts = [])
+      @chapters, @config, @layout, @fonts = [], config, layout, fonts
     end
 
     def each(&block)
@@ -26,8 +29,7 @@ module Rpub
     end
 
     def has_fonts?
-      fonts = config.fetch('fonts') { [] }
-      fonts.respond_to?(:any?) && fonts.any?
+      fonts.any?
     end
 
     def has_toc?
