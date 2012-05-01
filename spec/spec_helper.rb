@@ -1,4 +1,4 @@
-if RUBY_VERSION >= '1.9'
+if RUBY_VERSION >= '1.9' && ENV.has_key?('COVERAGE')
   require 'simplecov'
   SimpleCov.start
 end
