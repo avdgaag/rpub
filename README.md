@@ -171,7 +171,7 @@ tracker](https://github.com/avdgaag/rpub/issues).
 
 ### What has changed?
 
-See the [HISTORY](https://github.com/avdgaag/rpub/HISTORY) file for a detailed changelog.
+See the [HISTORY](https://github.com/avdgaag/rpub/blob/master/HISTORY.md) file for a detailed changelog.
 
 ### Credits
 
