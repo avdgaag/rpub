@@ -145,7 +145,7 @@ those files into your project using the `generate` subcommand:
 
 ### Examples
 
-See the [examples directory](https://github.com/avdgaag/rpub/example) for two example projects.
+See the [examples directory](https://github.com/avdgaag/rpub/tree/master/example) for two example projects.
 
 ### Documentation
 
