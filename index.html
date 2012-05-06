@@ -147,16 +147,20 @@ inclined.</p>
 
 <p>Simply define a <code>layout.html</code> and/or <code>styles.css</code> in your project directory.
 Your HTML file will be parsed with Erb, an so you can include your writing
-using the <code>yield</code> method:</p>
+using the <code>@body</code> instance variable:</p>
 
 <pre><code>&lt;html&gt;
 &lt;body&gt;
-  &lt;%= yield %&gt;
+  &lt;%= @body %&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
 
-<p><strong>Note</strong>: despite the name ‘html’ and <code>.html</code> extension, your file actually has
+<p><strong>Note 1</strong>: this feature is actually provided by the <a href="http://kramdown.rubyforge.org">Kramdown gem</a>,
+so have a look at <a href="https://github.com/gettalong/kramdown/blob/master/data/kramdown/document.html">the standard Kramdown document template</a> to see some
+nifty tricks.</p>
+
+<p><strong>Note 2</strong>: despite the name ‘html’ and <code>.html</code> extension, your file actually has
 to be XHTML-compliant.</p>
 
 <p>You can also provide custom layouts or styles to use when invoking the <code>compile</code>
