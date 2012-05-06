@@ -1,5 +1,12 @@
 # History
 
+## 0.3.0
+
+* Only run simplecov on demand
+* Automatically find and include embedded fonts
+* Filter input through typogruby
+* Added stats commands
+
 ## 0.2.1
 
 * Bugfix: allow multiple headings per chapters in outline
