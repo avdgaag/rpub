@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rpub::Epub::Toc do
   let(:chapters) { [] }
-  let(:book)     { double('book', :uid => 'foo', :title => 'title', :chapters => chapters) }
+  let(:book)     { double('book', :uid => 'foo', :title => 'title', :chapters => chapters, :config => {}) }
   let(:subject)  { described_class.new(book).render }
 
   it { should have_xpath('/xmlns:ncx') }
@@ -17,9 +17,14 @@ describe Rpub::Epub::Toc do
   end
 
   context 'with chapters' do
-    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :xml_id => 'id')] }
-    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="id"]') }
+    let(:heading1) { double('heading', :level => 1, :text => 'chapter title', :html_id => 'foo') }
+    let(:heading2) { double('heading', :level => 2, :text => 'chapter title 2', :html_id => 'bar') }
+    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :xml_id => 'id', :outline => [heading1, heading2])] }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="id-foo"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title"]') }
-    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename"]') }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename#foo"]') }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint[@id="id-bar"]') }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title 2"]') }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:content[@src="filename#bar"]') }
   end
 end
