@@ -1,5 +1,9 @@
 # History
 
+## 0.4.0
+
+* Generate ePub table of contents from markdown headings
+
 ## 0.3.0
 
 * Only run simplecov on demand

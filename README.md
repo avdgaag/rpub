@@ -104,6 +104,10 @@ configuration to your `config.yml` file:
 
     toc: true
 
+Note that Rpub always generates the ePub table of contents for you -- that is,
+the machine-readable references to chapter titles. This settings only controls
+the human-readable table of contents as a page in the book.
+
 #### Custom layout and styles
 
 When you compile a set of Markdown files to an ePub file, rpub uses a default
