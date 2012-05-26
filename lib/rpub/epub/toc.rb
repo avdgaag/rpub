@@ -39,9 +39,9 @@ module Rpub
         heading.children.each do |heading|
           html_id = heading.attr[:id]
           source = filename+'#'+html_id
-          nav_point html_id, next_play_order, heading.value.options[:raw_text], source do
-            if level <= @max_level
-              nav_points_nested_by_level heading, filename, level + 1
+          if heading.value.options[:level] <= @max_level
+            nav_point html_id, next_play_order, heading.value.options[:raw_text], source do
+                nav_points_nested_by_level heading, filename, level + 1
             end
           end
         end
