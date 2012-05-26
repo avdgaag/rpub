@@ -16,14 +16,14 @@ module Rpub
         xml.ncx :xmlns => 'http://www.daisy.org/z3986/2005/ncx/', :version => '2005-1' do
           xml.head do
             xml.meta :name => 'dtb:uid',            :content => book.uid
-            xml.meta :name => 'dtb:depth',          :content => '1'
+            xml.meta :name => 'dtb:depth',          :content => @max_level
             xml.meta :name => 'dtb:totalPageCount', :content => '0'
             xml.meta :name => 'dtb:maxPageNumber',  :content => '0'
           end
           xml.docTitle { xml.text book.title }
           xml.navMap do
             book.chapters.each do |chapter|
-              nav_points_nested_by_level chapter
+              nav_points_nested_by_level chapter.toc, chapter.filename
             end
           end
         end
@@ -35,13 +35,13 @@ module Rpub
         @play_order += 1
       end
 
-      def nav_points_nested_by_level(chapter, level = 1, start = nil)
-        chapter.outline.each_with_index do |heading, i|
-          next if start && i < start
-          break unless heading.level == level
-          nav_point chapter.xml_id + '-' + heading.html_id, next_play_order, heading.text, chapter.filename + '#' + heading.html_id do
-            if level < @max_level
-              nav_points_nested_by_level chapter, level + 1, i + 1
+      def nav_points_nested_by_level(heading, filename, level = 1)
+        heading.children.each do |heading|
+          html_id = heading.attr[:id]
+          source = filename+'#'+html_id
+          nav_point html_id, next_play_order, heading.value.options[:raw_text], source do
+            if level <= @max_level
+              nav_points_nested_by_level heading, filename, level + 1
             end
           end
         end
@@ -57,4 +57,3 @@ module Rpub
     end
   end
 end
-
