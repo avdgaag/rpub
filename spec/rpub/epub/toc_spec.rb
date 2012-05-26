@@ -7,7 +7,7 @@ describe Rpub::Epub::Toc do
 
   it { should have_xpath('/xmlns:ncx') }
   it { should have_xpath('/xmlns:ncx/xmlns:head/xmlns:meta[@name="dtb:uid"][@content="foo"]') }
-  it { should have_xpath('/xmlns:ncx/xmlns:head/xmlns:meta[@name="dtb:depth"][@content="1"]') }
+  it { should have_xpath('/xmlns:ncx/xmlns:head/xmlns:meta[@name="dtb:depth"][@content="2"]') }
   it { should have_xpath('/xmlns:ncx/xmlns:head/xmlns:meta[@name="dtb:totalPageCount"][@content="0"]') }
   it { should have_xpath('/xmlns:ncx/xmlns:head/xmlns:meta[@name="dtb:maxPageNumber"][@content="0"]') }
   it { should have_xpath('/xmlns:ncx/xmlns:docTitle/xmlns:text[text()="title"]') }
@@ -17,13 +17,14 @@ describe Rpub::Epub::Toc do
   end
 
   context 'with chapters' do
-    let(:heading1) { double('heading', :level => 1, :text => 'chapter title', :html_id => 'foo') }
-    let(:heading2) { double('heading', :level => 2, :text => 'chapter title 2', :html_id => 'bar') }
-    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :xml_id => 'id', :outline => [heading1, heading2])] }
-    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="id-foo"]') }
+    let(:heading1) { double('heading', :children => [heading2], :value => double('value', :options => {:raw_text => 'chapter title'  }), :attr => {:id => 'foo'}) }
+    let(:heading2) { double('heading', :children => [], :value => double('value', :options => {:raw_text => 'chapter title 2'}), :attr => {:id => 'bar'}) }
+    let(:toc)      { double('toc', :children => [heading1])}
+    let(:chapters) { [double('chapter', :title => 'chapter title', :filename => 'filename', :xml_id => 'id', :toc => toc)] }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="foo"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename#foo"]') }
-    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint[@id="id-bar"]') }
+    it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint[@id="bar"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title 2"]') }
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:content[@src="filename#bar"]') }
   end
