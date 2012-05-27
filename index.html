@@ -138,6 +138,16 @@ configuration to your <code>config.yml</code>&nbsp;file:</p>
 <pre><code>toc: true
 </code></pre>
 
+<p>Note that this only affects the human-readable table of contents,&nbsp;represented
+as a page in your book. Rpub will alway generate the .epub table of&nbsp;contents
+for you, which contains the machine-readable references to your chapters.&nbsp;It
+will, by default, reference all chapter titles and subheadings for you,&nbsp;but
+you can customize the number of levels that will be included using&nbsp;the
+following in your <code>config.yml</code>&nbsp;file:</p>
+
+<pre><code>max_level: 3
+</code></pre>
+
 <h4>Custom layout and&nbsp;styles</h4>
 
 <p>When you compile a set of Markdown files to an ePub file, rpub uses a&nbsp;default
@@ -177,14 +187,49 @@ those files into your project using the <code>generate</code>&nbsp;subcommand:</
 
 <h3>Command&nbsp;reference</h3>
 
-<ul>
-  <li><code>rpub compile</code> – generate .epub&nbsp;file</li>
-  <li><code>rpub package</code> – create zip file with compiled book and other listed&nbsp;files</li>
-  <li><code>rpub preview</code> – generate preview <span class="caps">HTML</span>&nbsp;file</li>
-  <li><code>rpub generate</code> – copy default layout.html, styles.css and&nbsp;config.yml</li>
-  <li><code>rpub help</code> – get help on&nbsp;subcommands</li>
-  <li><code>rpub clean</code> – remove generated&nbsp;files</li>
-</ul>
+<dl>
+  <dt><code>rpub compile</code></dt>
+  <dd>generate .epub&nbsp;file</dd>
+  <dt><code>rpub package</code></dt>
+  <dd>create zip file with compiled book and other listed&nbsp;files</dd>
+  <dt><code>rpub preview</code></dt>
+  <dd>generate preview <span class="caps">HTML</span>&nbsp;file</dd>
+  <dt><code>rpub generate</code></dt>
+  <dd>copy default layout.html, styles.css and&nbsp;config.yml</dd>
+  <dt><code>rpub help</code></dt>
+  <dd>get help on&nbsp;subcommands</dd>
+  <dt><code>rpub clean</code></dt>
+  <dd>remove generated&nbsp;files</dd>
+</dl>
+
+<h3>Configuration&nbsp;reference</h3>
+
+<dl>
+  <dt><code>title</code></dt>
+  <dd>the book title&nbsp;(string)</dd>
+  <dt><code>descrption</code></dt>
+  <dd>one-line summary of the book&nbsp;(string)</dd>
+  <dt><code>creator</code></dt>
+  <dd>author name&nbsp;(string)</dd>
+  <dt><code>publisher</code></dt>
+  <dd>publisher name&nbsp;(string)</dd>
+  <dt><code>subject</code></dt>
+  <dd>book subject/category&nbsp;(string)</dd>
+  <dt><code>language</code></dt>
+  <dd>language code of the book contents, e.g. ‘en’&nbsp;(string)</dd>
+  <dt><code>rights</code></dt>
+  <dd>copyright line&nbsp;(string)</dd>
+  <dt><code>version</code></dt>
+  <dd>version number of the book to include in the .epub filename&nbsp;(string)</dd>
+  <dt><code>toc</code></dt>
+  <dd>whether to generate a table of contents as book page (boolean, default&nbsp;false)</dd>
+  <dt><code>max_level</code></dt>
+  <dd>the maximum depth of the .epub table of contents (number, default&nbsp;2)</dd>
+  <dt><code>ignore</code></dt>
+  <dd>list of files not to include in the epub, that otherwise would&nbsp;(array)</dd>
+  <dt><code>package</code></dt>
+  <dd>list of files to be included in the archive created by the package task&nbsp;(array)</dd>
+</dl>
 
 <h3>Examples</h3>
 
