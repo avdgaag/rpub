@@ -104,9 +104,14 @@ configuration to your `config.yml` file:
 
     toc: true
 
-Note that Rpub always generates the ePub table of contents for you -- that is,
-the machine-readable references to chapter titles. This settings only controls
-the human-readable table of contents as a page in the book.
+Note that this only affects the human-readable table of contents, represented
+as a page in your book. Rpub will alway generate the .epub table of contents
+for you, which contains the machine-readable references to your chapters. It
+will, by default, reference all chapter titles and subheadings for you, but
+you can customize the number of levels that will be included using the
+following in your `config.yml` file:
+
+    max_level: 3
 
 #### Custom layout and styles
 

@@ -1,6 +1,6 @@
 # History
 
-## 0.4.0
+## 0.4.0 (unreleased)
 
 * Generate ePub table of contents from markdown headings
 
