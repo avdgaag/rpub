@@ -17,6 +17,11 @@ module Rpub
       @content, @number, @layout = content, number, layout
       @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
     end
+    
+    # @return [Kramdown::Element] Toc elements hierarchy
+    def toc
+      Kramdown::Converter::Toc.convert(@document.root).first
+    end
 
     # @return [String] Unique identifier for this chapter.
     def uid
