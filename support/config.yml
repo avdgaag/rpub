@@ -8,6 +8,7 @@ language:    'en'
 rights:      'public comain'
 version:     '0.0.0'
 toc:         true
+max_level:   2
 ignore:
  - README.md
 package:

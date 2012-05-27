@@ -170,6 +170,45 @@ those files into your project using the `generate` subcommand:
 `rpub clean`
 : remove generated files
 
+### Configuration reference
+
+`title`
+: the book title (string)
+
+`descrption`
+: one-line summary of the book (string)
+
+`creator`
+: author name (string)
+
+`publisher`
+: publisher name (string)
+
+`subject`
+: book subject/category (string)
+
+`language`
+: language code of the book contents, e.g. 'en' (string)
+
+`rights`
+: copyright line (string)
+
+`version`
+: version number of the book to include in the .epub filename (string)
+
+`toc`
+: whether to generate a table of contents as book page (boolean, default false)
+
+`max_level`
+: the maximum depth of the .epub table of contents (number, default 2)
+
+`ignore`
+: list of files not to include in the epub, that otherwise would (array)
+
+`package`
+: list of files to be included in the archive created by the package task (array)
+
+
 ### Examples
 
 See the [examples directory](https://github.com/avdgaag/rpub/tree/master/example) for two example projects.

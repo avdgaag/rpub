@@ -3,6 +3,7 @@
 ## 0.4.0 (unreleased)
 
 * Generate ePub table of contents from markdown headings
+* Expanded documentation with configuration reference
 
 ## 0.3.0
 
