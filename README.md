@@ -152,12 +152,23 @@ those files into your project using the `generate` subcommand:
 
 ### Command reference
 
-* `rpub compile` -- generate .epub file
-* `rpub package` -- create zip file with compiled book and other listed files
-* `rpub preview` -- generate preview HTML file
-* `rpub generate` -- copy default layout.html, styles.css and config.yml
-* `rpub help` -- get help on subcommands
-* `rpub clean` -- remove generated files
+`rpub compile`
+: generate .epub file
+
+`rpub package`
+: create zip file with compiled book and other listed files
+
+`rpub preview`
+: generate preview HTML file
+
+`rpub generate`
+: copy default layout.html, styles.css and config.yml
+
+`rpub help`
+: get help on subcommands
+
+`rpub clean`
+: remove generated files
 
 ### Examples
 
