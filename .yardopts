@@ -1,6 +1,8 @@
 --no-private
 --title "Rpub, a simple ePub generator library in Ruby"
 --readme README.md
+--markup markdown
+--markup-provider kramdown
 -
 HISTORY.md
 LICENSE
