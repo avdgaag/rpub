@@ -39,6 +39,7 @@ make working with ePub files a little&nbsp;easier:</p>
   <li>Packaging your eBook in an archive with additional <span class="caps">README</span>&nbsp;file</li>
   <li>Embedding&nbsp;fonts</li>
   <li>Easy previewing as you&nbsp;write</li>
+  <li>.mobi&nbsp;compatibility</li>
 </ul>
 
 <h2>Installation</h2>
@@ -87,7 +88,8 @@ title: My new book
 version: 0.1.0
 </code></pre>
 
-<p>This file is written in <a href="http://yaml.org"><span class="caps">YAML</span></a> and sets basic properties of your book&nbsp;project.</p>
+<p>This file is written in <a href="http://yaml.org"><span class="caps">YAML</span></a> and sets basic properties&nbsp;of
+your book&nbsp;project.</p>
 
 <p>Since regenerating your ePub file and opening it in a suitable&nbsp;reader
 application is cumbersome, Rpub can generate a simple preview document for&nbsp;you:</p>
@@ -98,6 +100,24 @@ application is cumbersome, Rpub can generate a simple preview document for&nbsp;
 <p>This will generate a new <span class="caps">HTML</span> file in your project directory with a name&nbsp;similar
 to your ePub file. This is the entire text of your book as a single web page&nbsp;for
 easy viewing in any&nbsp;browser.</p>
+
+<h3>Generating a .mobi&nbsp;file</h3>
+
+<p>Since the ePub and Mobipocket file formats are very (<em>very</em>) similar it&nbsp;is
+quite easy to create a <code>.mobi</code> version of your book, suitable for reading&nbsp;on
+Amazon’s Kindle. To do so, you will need to install the <a href="http://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000765211">kindlegen&nbsp;program
+Amazon provides</a>.</p>
+
+<p>Here’s how it&nbsp;works:</p>
+
+<ol>
+  <li>Install <code>kindlegen</code> (<a href="http://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000765211">download it here</a>)</li>
+  <li>Compile your book as usual using&nbsp;<code>rpub compile</code></li>
+  <li>Compile <code>my-book.epub</code> to <code>my-book.mobi</code>:&nbsp;<code>kindlegen my-book.epub</code>.</li>
+</ol>
+
+<p>Optionally, include your <code>my-book.mobi</code> in your package by adding it to&nbsp;your
+list of packaged files (see “Packaging for&nbsp;distribution”).</p>
 
 <h3>Advanced&nbsp;features</h3>
 
