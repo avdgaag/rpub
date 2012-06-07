@@ -10,6 +10,7 @@ make working with ePub files a little easier:
 * Packaging your eBook in an archive with additional README file
 * Embedding fonts
 * Easy previewing as you write
+* .mobi compatibility
 
 ## Installation
 
@@ -53,7 +54,8 @@ in a special configuration file called `config.yml`:
     title: My new book
     version: 0.1.0
 
-This file is written in [YAML](http://yaml.org) and sets basic properties of your book project.
+This file is written in [YAML](http://yaml.org) and sets basic properties of
+your book project.
 
 Since regenerating your ePub file and opening it in a suitable reader
 application is cumbersome, Rpub can generate a simple preview document for you:
@@ -66,6 +68,24 @@ easy viewing in any browser.
 
 [Markdown]: http://daringfireball.net/projects/markdown
 [John gruber]: http://daringfireball.net
+
+### Generating a .mobi file
+
+Since the ePub and Mobipocket file formats are very (_very_) similar it is
+quite easy to create a `.mobi` version of your book, suitable for reading on
+Amazon's Kindle. To do so, you will need to install the [kindlegen program
+Amazon provides][kindlegen].
+
+Here's how it works:
+
+1. Install `kindlegen` ([download it here][kindlegen])
+2. Compile your book as usual using `rpub compile`
+3. Compile `my-book.epub` to `my-book.mobi`: `kindlegen my-book.epub`.
+
+Optionally, include your `my-book.mobi` in your package by adding it to your
+list of packaged files (see "Packaging for distribution").
+
+[kindlegen]: http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211
 
 ### Advanced features
 
