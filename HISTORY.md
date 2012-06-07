@@ -1,9 +1,10 @@
 # History
 
-## 0.4.0 (unreleased)
+## 0.4.0
 
 * Generate ePub table of contents from markdown headings
 * Expanded documentation with configuration reference
+* Enhanced .mobi compatibility (convert your .epub with kindlegen)
 
 ## 0.3.0
 
