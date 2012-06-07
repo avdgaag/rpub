@@ -58,6 +58,7 @@ describe Rpub::Epub::Content do
   context 'when the book has a ToC' do
     before { book.stub! :has_toc? => true }
     it { should have_xpath('/xmlns:package/xmlns:manifest/xmlns:item[@id="toc"][@href="toc.html"][@media-type="application/xhtml+xml"]') }
+    it { should have_xpath('/xmlns:package/xmlns:guide/xmlns:reference[@type="toc"][@title="Table of Contents"][@href="toc.html"]') }
   end
 
   context 'when the book has images' do

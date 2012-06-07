@@ -71,9 +71,14 @@ module Rpub
             end
           end
 
-          if book.has_cover?
+          if book.has_cover? || book.has_toc?
             xml.guide do
-              xml.reference :type => 'cover', :title => 'Cover', :href => 'cover.html'
+              if book.has_cover?
+                xml.reference :type => 'cover', :title => 'Cover', :href => 'cover.html'
+              end
+              if book.has_toc?
+                xml.reference :type => 'toc',   :title => 'Table of Contents', :href => 'toc.html'
+              end
             end
           end
         end
