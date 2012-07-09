@@ -11,7 +11,7 @@ describe Rpub::Commands::Main do
   it 'should raise error when a subcommand remains' do
     expect {
       described_class.new(['foo'], buffer).invoke
-    }.should raise_error(Rpub::InvalidSubcommand)
+    }.to raise_error(Rpub::InvalidSubcommand)
   end
 
   it 'should print the version number' do
