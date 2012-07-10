@@ -8,11 +8,11 @@ module Rpub
         super
         text = Nokogiri::HTML(concatenated_document.to_html).xpath('//text()').to_s
         puts "#{text.words.size} words"
-        puts "#{text.words.size / 500} pages"
+        puts "#{(text.words.size.to_f / 500).ceil} pages"
         puts "#{text.sentences} sentences"
         puts "#{text.avg_sentence_length} avg sentence length"
-        puts "#{text.ari} ari"
-        puts "#{text.clf} clf"
+        puts "#{text.ari.round(2)} ari"
+        puts "#{text.clf.round(2)} clf"
       end
     end
   end
