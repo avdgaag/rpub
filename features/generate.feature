@@ -55,7 +55,8 @@ Feature: Generate boilerplate files
             Foo
             """
         When I successfully run `rpub generate --layout`
-        Then the file "layout.html" should contain exactly:
+        Then the stderr should contain "Not overriding layout.html"
+        And the file "layout.html" should contain exactly:
             """
             Foo
             """
