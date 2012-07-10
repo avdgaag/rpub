@@ -8,3 +8,4 @@ bin/*
 pkg
 coverage
 _site
+tmp
