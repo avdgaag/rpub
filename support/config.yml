@@ -11,5 +11,6 @@ toc:         true
 max_level:   2
 ignore:
  - README.md
+package_file: 'untitled_book.zip'
 package:
  - README.md
