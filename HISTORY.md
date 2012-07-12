@@ -1,5 +1,15 @@
 # History
 
+## (unreleased)
+
+* Respect `max_level` setting in human-readable table of contents
+* Use default configuration when no `config.yml` file can be found
+* Allow passing in custom configuration file in `compile` command with -c option
+* Bugfix: count ePub table of contents order from 1, not from 0
+* Output `clean` command warnings on stderr, not stdout
+* Round readability statistics from `stats` command
+* Bugfix: let `stats` command consider less than one page still one page, not 0 pages
+
 ## 0.4.0
 
 * Generate ePub table of contents from markdown headings

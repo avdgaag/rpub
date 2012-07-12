@@ -1,6 +1,6 @@
 body {
-	margin: 3%;
-	font-family: Georgia, serif;
+    margin: 3%;
+    font-family: Georgia, serif;
     line-height: 1.4em;
 }
 
@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6, p, ul, ol, dl, table, img, pre {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: sans-serif;
+    font-family: sans-serif;
     page-break-after: avoid;
     page-break-inside: avoid;
 }

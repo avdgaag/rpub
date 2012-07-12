@@ -45,8 +45,8 @@ describe Rpub::Commands::Generate do
 
     it 'should not generate existing files' do
       File.open('styles.css', 'w') { |f| f.write 'foo' }
+      subject.should_receive(:warn).with('Not overriding styles.css')
       expect(&subject.method(:invoke)).to_not change { File.read('styles.css') }
-      buffer.string.should include('Not overriding styles.css')
     end
   end
 end

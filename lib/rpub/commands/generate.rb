@@ -29,7 +29,7 @@ module Rpub
       def write_file(file)
         output_file = File.basename(file)
         if File.exist?(output_file)
-          puts "Not overriding #{output_file}"
+          warn "Not overriding #{output_file}"
           return
         end
         File.open(output_file, 'w') do |f|
