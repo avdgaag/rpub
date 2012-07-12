@@ -3,11 +3,6 @@ Feature: previews
     I want to quickly see my words in an HTML file with the final formatting
     So I can see how my work will look without having to use a special e-reader
 
-    Scenario: when not in an rpub project
-        When I run `rpub preview`
-        Then the stderr should contain "The current directory does not look like an rpub project."
-        And the exit status should not be 0
-
     Scenario: when there is no content
         Given the default "config.yml" file
         When I successfully run `rpub preview`

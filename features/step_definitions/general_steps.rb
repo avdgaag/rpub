@@ -11,10 +11,16 @@ Given /^the default "(.*?)" file$/ do |filename|
   write_file filename, read_support_file(filename)
 end
 
-Given /^the default "(.*?)" file with "(.*?)" set to "(.*?)"$/ do |filename, key, value|
-  config = YAML.load(read_support_file(filename))
+Given /^the default "config.yml" file with "(.*?)" set to "(.*?)"$/ do |key, value|
+  config = YAML.load(read_support_file('config.yml'))
   config[key] = value
-  write_file filename, YAML.dump(config)
+  write_file 'config.yml', YAML.dump(config)
+end
+
+Given /^the default "config.yml" file with:$/ do |settings|
+  config = YAML.load(read_support_file('config.yml'))
+  config.merge! settings.rows_hash
+  write_file 'config.yml', YAML.dump(config)
 end
 
 Then /^the default file "(.*?)" should exist$/ do |filename|
@@ -30,6 +36,14 @@ Then /^the archive "(.*?)" should contain file "(.*?)"$/ do |filename, entry|
   end
 end
 
+Then /^the archive "(.*?)" should not contain file "(.*?)"$/ do |filename, entry|
+  in_current_dir do
+    Zip::ZipFile.open(filename, Zip::ZipFile::CREATE) do |zipfile|
+      zipfile.find_entry(entry).should be_nil
+    end
+  end
+end
+
 Given /^a basic project$/ do
   steps %Q{
     Given a file named "README.md" with:
@@ -41,6 +55,8 @@ Given /^a basic project$/ do
     And the default "config.yml" file
     And a file named "chapter1.md" with:
         """
+        # Chapter 1
+
         Hello, world
         """
   }

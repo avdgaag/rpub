@@ -45,9 +45,10 @@ module Rpub
     # @raise [NoConfiguration] when the config file cannot be found.
     # @return [Hash] parsed configuration
     def config
-      @config_file ||= begin
-        raise NoConfiguration unless File.exist?('config.yml')
-        YAML.load_file('config.yml') || {}
+      @config ||= begin
+        @config_file ||= own_or_support_file('config.yml')
+        raise NoConfiguration unless File.exist?(@config_file)
+        YAML.load_file(@config_file) || {}
       end
     end
 
