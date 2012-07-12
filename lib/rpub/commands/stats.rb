@@ -11,8 +11,8 @@ module Rpub
         puts "#{(text.words.size.to_f / 500).ceil} pages"
         puts "#{text.sentences} sentences"
         puts "#{text.avg_sentence_length} avg sentence length"
-        puts "#{text.ari.round(2)} ari"
-        puts "#{text.clf.round(2)} clf"
+        puts format("%.2f ari", text.ari)
+        puts format("%.2f clf", text.clf)
       end
     end
   end
