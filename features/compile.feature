@@ -23,6 +23,7 @@ Feature: Compilation
         When I successfully run `rpub compile`
         Then a file named "my-book-1.2.3.epub" should exist
 
+    @epubcheck
     Scenario: valid epub file
         Given the default "config.yml" file
         When I successfully run `rpub compile`
