@@ -14,8 +14,10 @@ module Rpub
           xml.div :class => 'toc' do
             book.outline.each do |(filename, headings)|
               headings.each do |heading|
-                xml.div :class => "level-#{heading.level}" do
-                  xml.a heading.text, :href => [filename, heading.html_id].join('#')
+                if heading.level <= book.config.fetch('max_level', 2)
+                  xml.div :class => "level-#{heading.level}" do
+                    xml.a heading.text, :href => [filename, heading.html_id].join('#')
+                  end
                 end
               end
             end

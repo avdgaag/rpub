@@ -13,6 +13,8 @@ end
 
 Given /^the default "config.yml" file with "(.*?)" set to "(.*?)"$/ do |key, value|
   config = YAML.load(read_support_file('config.yml'))
+  value = false if value == 'false'
+  value = value.to_i if value =~ /^\d+$/
   config[key] = value
   write_file 'config.yml', YAML.dump(config)
 end
