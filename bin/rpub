@@ -3,4 +3,143 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 require 'rpub'
 
-Rpub::Commander.invoke(ARGV)
+gem = Gem::Specification.load(File.expand_path('../../rpub.gemspec', __FILE__))
+
+require 'commander/import'
+program :name,           gem.name
+program :version,        gem.version.to_s
+program :description,    gem.description
+program :help_formatter, :compact
+
+
+default_command :compile
+
+command :clean do |c|
+  c.syntax      = 'rpub clean [OPTIONS]'
+  c.summary     = 'Remove all generated files'
+  c.description = 'Clean up all generated files, such as the standard generated .epub file, package files and preview files.'
+  c.option '-d', '--[no-]dryrun', 'Only list files to be removed'
+  c.action do |args, options|
+    def remove(filename, dry_run = false)
+      if File.exist?(filename)
+        if dry_run
+          puts filename
+        else
+          File.unlink(filename)
+        end
+      end
+    end
+
+    c = Rpub::Compiler.new(:config => options.config)
+    remove c.book.filename, options.dryrun
+    remove 'preview.html', options.dryrun
+  end
+end
+
+command :generate do |c|
+  c.syntax      = 'rpub generate [OPTIONS]'
+  c.summary     = 'Generate default project files'
+  c.description = 'Generate one or more standard files to get started with a new project. By default an entire skeleton project is generated, but by passing the -s, -l, -c options you can generate just a single file.'
+  c.option '-s', '--[no-]styles', 'Generate default stylesheet'
+  c.option '-l', '--[no-]layout', 'Generate default HTML layout'
+  c.option '-c', '--[no-]config', 'Generate default configuration'
+  c.action do |args, options|
+    def write_file(file)
+      output_file = File.basename(file)
+      if File.exist?(output_file)
+        warn "Not overriding #{output_file}"
+        return
+      end
+      File.open(output_file, 'w') do |f|
+        f.write File.read(file)
+      end
+    end
+
+    all = [options.styles, options.layout, options.config].all? do |b|
+      b.nil? || b == false
+    end
+
+    if (options.styles.nil? && all) || (!options.styles.nil? && options.styles)
+      write_file Rpub.support_file('styles.css')
+    end
+
+    if (options.layout.nil? && all) || (!options.layout.nil? && options.layout)
+      write_file Rpub.support_file('layout.html')
+    end
+
+    if (options.config.nil? && all) || (!options.config.nil? && options.config)
+      write_file Rpub.support_file('config.yml')
+    end
+  end
+end
+
+command :stats do |c|
+  c.syntax      = 'rpub stats'
+  c.summary     = 'Basic text statistics'
+  c.description = 'Display basic statistics of all the content in the current project'
+  c.option '-c', '--config FILENAME', 'Specify an explicit configuration file to use'
+  c.action do |args, options|
+    html = Rpub::Compiler.new(:config => options.config).preview_content
+    text = Nokogiri::HTML(html).xpath('//text()').to_s
+    puts "#{text.words.size} words"
+    puts "#{(text.words.size.to_f / 500).ceil} pages"
+    puts "#{text.sentences} sentences"
+    puts "#{text.avg_sentence_length} avg sentence length"
+    puts format("%.2f ari", text.ari)
+    puts format("%.2f clf", text.clf)
+  end
+end
+
+command :preview do |c|
+  c.syntax      = 'rpub preview [OPTIONS]'
+  c.summary     = 'Single-page HTML preview of entire book'
+  c.description = 'Generate a single-page HTML file for easy previewing of your content with the layout and styles used when generating .epub files. By default, the output file will be named "preview.html".'
+  c.option '-l', '--layout FILENAME', 'Specify an explicit layout file to use'
+  c.option '-o', '--output FILENAME', 'Specify an explicit output file'
+  c.option '-c', '--config FILENAME', 'Specify an explicit configuration file to use'
+  c.action do |args, options|
+    options.default :output => 'preview.html'
+    content = Rpub::Compiler.new(:config => options.config, :layout => options.layout).preview
+    unless content.nil?
+      File.open(options.output, 'w') do |f|
+        f.write content
+      end
+    end
+  end
+end
+
+command :package do |c|
+  c.syntax      = 'rpub package [OPTIONS]'
+  c.summary     = 'Package book and support file for distribution'
+  c.description = 'Compile your ebook to an ePub file and package it into an archive together with optional other files for easy distibution. You might want to include a README file, a license or other promotion material.'
+  c.option '-c', '--config FILENAME', 'Specify an explicit configuration file to use'
+  c.action do |args, options|
+    c = Rpub::Compiler.new(:config => options.config, :layout => options.layout, :styles => options.styles)
+    Rpub::Compressor.open(c.book.filename) do |zip|
+      Rpub::Epub.new(c.book, File.read(c.styles)).manifest_in(zip)
+    end
+    if c.config['package_file']
+      Rpub::Compressor.open(c.config['package_file']) do |zip|
+        zip.store_file c.book.filename, File.read(c.book.filename)
+        Array(c.config['package']).each do |file|
+          zip.compress_file file, File.read(file)
+        end
+      end
+    end
+  end
+end
+
+command :compile do |c|
+  c.syntax      = 'rpub compile [OPTIONS]'
+  c.summary     = 'Compile chapters into .epub file'
+  c.description = ' Compile your Markdown-formatted input files to a valid .epub output file using the options described in config.yml. This will use the layout.html and styles.css files in your project directory if present.'
+  c.option '-l', '--layout FILENAME', 'Specify an explicit layout file to use'
+  c.option '-s', '--styles FILENAME', 'Specify an explicit stylesheet file to use'
+  c.option '-c', '--config FILENAME', 'Specify an explicit configuration file to use'
+  c.action do |args, options|
+    c = Rpub::Compiler.new(:config => options.config, :layout => options.layout, :styles => options.styles)
+    Rpub::Compressor.open(c.book.filename) do |zip|
+      Rpub::Epub.new(c.book, File.read(c.styles)).manifest_in(zip)
+    end
+  end
+end

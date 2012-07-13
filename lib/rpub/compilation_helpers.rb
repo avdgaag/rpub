@@ -30,28 +30,6 @@ module Rpub
       @markdown_files ||= filter_exceptions(Dir['*.md']).sort.map(&File.method(:read))
     end
 
-    # @return [String] path to the current layout file (defaulting to built-in)
-    def layout
-      @layout ||= own_or_support_file('layout.html')
-    end
-
-    # @return [String] path to the current stylesheet file (defaulting to built-in)
-    def styles
-      @styles ||= own_or_support_file('styles.css')
-    end
-
-    # Load the contents of +config.yml+ into a +Hash+ object.
-    #
-    # @raise [NoConfiguration] when the config file cannot be found.
-    # @return [Hash] parsed configuration
-    def config
-      @config ||= begin
-        @config_file ||= own_or_support_file('config.yml')
-        raise NoConfiguration unless File.exist?(@config_file)
-        YAML.load_file(@config_file) || {}
-      end
-    end
-
   private
 
     def fonts
@@ -61,14 +39,6 @@ module Rpub
     def filter_exceptions(filenames)
       return filenames unless config.has_key?('ignore')
       filenames.reject(&config['ignore'].method(:include?))
-    end
-
-    def own_or_support_file(filename)
-      if File.exists?(filename)
-        filename
-      else
-        Rpub.support_file(filename)
-      end
     end
   end
 end
