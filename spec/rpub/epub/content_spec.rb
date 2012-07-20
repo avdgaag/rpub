@@ -1,21 +1,26 @@
 require 'spec_helper'
 
 describe Rpub::Epub::Content do
+  let(:config) do
+    {
+      'creator'     => 'anonymous',
+      'title'       => 'title',
+      'language'    => 'en',
+      'publisher'   => 'none',
+      'description' => 'foo bar',
+      'subject'     => 'baz qux',
+      'rights'      => 'copyright',
+    }
+  end
   let(:book) do
     double('book', {
-      :creator     => 'anonymous',
-      :title       => 'title',
-      :language    => 'en',
-      :publisher   => 'none',
-      :description => 'foo bar',
-      :subject     => 'baz qux',
-      :rights      => 'copyright',
-      :uid         => 'abcd',
-      :has_cover?  => false,
-      :has_fonts?  => false,
-      :has_toc?    => false,
-      :images      => [],
-      :chapters    => []
+      :config      =>  config,
+      :uid         =>  'abcd',
+      :has_cover?  =>  false,
+      :has_fonts?  =>  false,
+      :has_toc?    =>  false,
+      :images      =>  [],
+      :chapters    =>  []
     })
   end
   let(:subject) { described_class.new(book).render }
@@ -32,12 +37,12 @@ describe Rpub::Epub::Content do
     it { should have_xpath('/xmlns:package[@unique-identifier="BookId"][@version="2.0"]') }
     it { should have_xpath('/xmlns:package[@unique-identifier="BookId"][@version="2.0"]') }
 
-    it_should_have_metadata 'title', "title"
-    it_should_have_metadata 'creator', "anonymous", 'xmlns:role' => 'aut'
-    it_should_have_metadata 'publisher', "none"
-    it_should_have_metadata 'subject', "baz qux"
-    it_should_have_metadata 'identifier', "abcd", :id => 'BookId'
-    it_should_have_metadata 'rights', "copyright"
+    it_should_have_metadata 'title',       "title"
+    it_should_have_metadata 'creator',     "anonymous", 'xmlns:role' => 'aut'
+    it_should_have_metadata 'publisher',   "none"
+    it_should_have_metadata 'subject',     "baz qux"
+    it_should_have_metadata 'identifier',  "abcd",      :id => 'BookId'
+    it_should_have_metadata 'rights',      "copyright"
     it_should_have_metadata 'description', "foo bar"
   end
 

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Rpub::Epub::Toc do
   let(:chapters) { [] }
-  let(:config)   { {} }
-  let(:book)     { double('book', :uid => 'foo', :title => 'title', :chapters => chapters, :config => config) }
+  let(:config)   { { 'title' => 'title' } }
+  let(:book)     { double('book', :uid => 'foo', :chapters => chapters, :config => config) }
   let(:subject)  { described_class.new(book).render }
 
   it { should have_xpath('/xmlns:ncx') }
@@ -30,7 +30,7 @@ describe Rpub::Epub::Toc do
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:content[@src="filename#bar"]') }
 
     context 'with low max_level' do
-      let(:config) { { :max_level => 1 } }
+      let(:config) { { 'title' => 'title', 'max_level' => 1 } }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="foo"]') }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title"]') }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename#foo"]') }

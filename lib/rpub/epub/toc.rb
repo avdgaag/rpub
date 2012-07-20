@@ -6,7 +6,7 @@ module Rpub
       def initialize(book)
         @book       = book
         @play_order = 0
-        @max_level  = book.config.fetch(:max_level) { 2 }
+        @max_level  = book.config.fetch('max_level') { 2 }
         super()
       end
 
