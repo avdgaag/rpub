@@ -26,7 +26,7 @@ module Rpub
   end
 
   def self.document_factory
-    Rpub::Document.public_method(:new)
+    Rpub::Document.method(:new)
   end
 end
 
