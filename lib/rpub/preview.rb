@@ -18,7 +18,7 @@ module Rpub
     private
 
     def plain
-      Document.new(context.chapter_files.join("\n"), context.layout).to_html
+      Rpub.document_factory.call(context.chapter_files.join("\n"), context.layout).to_html
     end
 
     def move_styles_inline(html)
