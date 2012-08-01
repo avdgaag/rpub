@@ -4,6 +4,9 @@ module Rpub
   # suitable for writing to the epub archive with the appropriate identifiers
   # to be listed in the epub manifest files.
   class Chapter
+    extend Forwardable
+    def_delegators :@document, :images, :outline, :toc, :title, :to_html
+
     # @return [String] raw textual contents of this chapter
     attr_reader :content
 
@@ -13,16 +16,9 @@ module Rpub
     # @return [String] filename of the layout to use, to be passed directly to the Kramdown gem.
     attr_reader :layout
 
-    OutlineElement = Struct.new(:level, :text, :html_id)
-
     def initialize(content, number, layout)
       @content, @number, @layout = content, number, layout
-      @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
-    end
-
-    # @return [Kramdown::Element] Toc elements hierarchy
-    def toc
-      Kramdown::Converter::Toc.convert(@document.root).first
+      @document = Document.new(content, layout)
     end
 
     # @return [String] Unique identifier for this chapter.
@@ -35,57 +31,9 @@ module Rpub
       @id ||= "chapter-#{number}"
     end
 
-    # @return [String] content parsed to HTML by the markdown engine.
-    def to_html
-      @to_html ||= Typogruby.improve(@document.to_html)
-    end
-
     # @return [String] name for the file in the zip to use, based on the title
     def filename
       @filename ||= xml_id.to_s + '-' + title.gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.html'
-    end
-
-    # Ordered headers for this chapter, each header as an object responding
-    # to #level and #text.
-    #
-    # @return [Array<#text,#level,#html_id>] list of headers for this chapter
-    def outline
-      @outline ||= elements(:header).map do |element|
-        OutlineElement.new(
-          element.options[:level],
-          element_text(element),
-          Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
-        )
-      end
-    end
-
-    # @return [Array<String>] list of all image references
-    def images
-      @images ||= elements(:img).map { |e| e.attr['src'] }
-    end
-
-    # @return [String] Text of the first heading in this chapter
-    def title
-      @title ||= begin
-        (heading = outline.first) ? heading.text : 'untitled'
-      end
-    end
-
-  private
-
-    def element_text(element)
-      elements(:text, element).map { |e| e.value }.join
-    end
-
-    def elements(type, root = @document.root)
-      collector = lambda do |element|
-        element.children.select { |e|
-          e.type == type
-        } + element.children.map { |e|
-          collector.call(e)
-        }.flatten
-      end
-      collector.call(root)
     end
   end
 end
