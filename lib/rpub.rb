@@ -35,6 +35,7 @@ require 'rpub/epub/toc'
 require 'rpub/epub/content'
 require 'rpub/epub/html_toc'
 require 'rpub/epub/cover'
+require 'rpub/media_type'
 
 module Rpub
   GEM_ROOT = File.expand_path('../../', __FILE__)

@@ -1,13 +1,6 @@
 module Rpub
   class Epub
     class Content < XmlFile
-      MEDIA_TYPES = {
-        'png' => 'image/png',
-        'gif' => 'image/gif',
-        'jpg' => 'image/jpeg',
-        'svg' => 'image/svg+xml'
-      }
-
       def render
         xml.instruct!
         xml.declare! :DOCTYPE, :package, :PUBLIC,  '-//W3C//DTD XHTML 1.1//EN', 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'
@@ -39,11 +32,11 @@ module Rpub
 
             if book.has_cover?
               xml.item 'id' => 'cover', 'href' => 'cover.html', 'media-type' => 'application/xhtml+xml'
-              xml.item 'id' => 'cover-image', 'href' => book.cover_image, 'media-type' => guess_media_type(book.cover_image)
+              xml.item 'id' => 'cover-image', 'href' => book.cover_image, 'media-type' => MediaType.guess_media_type(book.cover_image)
             end
 
             book.images.each do |image|
-              xml.item 'id' => File.basename(image), 'href' => image, 'media-type' => guess_media_type(image)
+              xml.item 'id' => File.basename(image), 'href' => image, 'media-type' => MediaType.guess_media_type(image)
             end
 
             if book.has_toc?
@@ -75,13 +68,6 @@ module Rpub
             end
           end
         end
-      end
-
-      private
-
-      # TODO refactor into separate guesser object
-      def guess_media_type(filename)
-        MEDIA_TYPES.fetch(filename[/\.(gif|png|jpe?g|svg)$/, 1]) { 'image/png' }
       end
     end
   end
