@@ -3,8 +3,11 @@ module Rpub
     # @return [Builder::XmlMarkup]
     attr_reader :xml
 
-    def initialize
+    attr_reader :book
+
+    def initialize(book = nil)
       @xml = Builder::XmlMarkup.new :indent => 2
+      @book = book
     end
 
     # @return [String] render this file and output as string

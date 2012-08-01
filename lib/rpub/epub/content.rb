@@ -1,19 +1,12 @@
 module Rpub
   class Epub
     class Content < XmlFile
-      attr_reader :book
-
       MEDIA_TYPES = {
         'png' => 'image/png',
         'gif' => 'image/gif',
         'jpg' => 'image/jpeg',
         'svg' => 'image/svg+xml'
       }
-
-      def initialize(book)
-        @book = book
-        super()
-      end
 
       def render
         xml.instruct!

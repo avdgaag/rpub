@@ -1,13 +1,6 @@
 module Rpub
   class Epub
     class HtmlToc < XmlFile
-      attr_reader :book
-
-      def initialize(book)
-        @book = book
-        super()
-      end
-
       def render
         xml.div :id => 'toc' do
           xml.h1 'Table of Contents'
