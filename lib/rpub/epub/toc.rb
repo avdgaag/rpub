@@ -6,7 +6,7 @@ module Rpub
       def initialize(book)
         @book       = book
         @play_order = 0
-        @max_level  = book.config.fetch(:max_level) { 2 }
+        @max_level  = book.config.fetch('max_level') { 2 }
         super()
       end
 
@@ -20,7 +20,7 @@ module Rpub
             xml.meta :name => 'dtb:totalPageCount', :content => '0'
             xml.meta :name => 'dtb:maxPageNumber',  :content => '0'
           end
-          xml.docTitle { xml.text book.title }
+          xml.docTitle { xml.text book.config.fetch('title') }
           xml.navMap do
             book.chapters.each do |chapter|
               nav_points_nested_by_level chapter.toc, chapter.filename

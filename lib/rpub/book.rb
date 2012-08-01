@@ -3,25 +3,18 @@ module Rpub
   # ordering, the book metadata from the configuration file and the book output
   # filename.
   class Book
+    extend Forwardable
     include Enumerable
-    include HashDelegation
 
-    delegate_to_hash :config
-
-    # @return [Hash] The hash of configuration options read from the config.yml file.
-    attr_reader :config
+    def_delegators :@context, :fonts, :config, :layout
 
     # @return [Array<Chapter>] List of chapters, one for every input markdown file.
     attr_reader :chapters
 
-    # @return [Array<String>] all the fonts referred to in the stylesheet
-    attr_reader :fonts
-
-    # @return [String] the path the layout HTML file to use to wrap the chapter in.
-    attr_reader :layout
-
-    def initialize(layout, config = {}, fonts = [])
-      @chapters, @config, @layout, @fonts = [], config, layout, fonts
+    def initialize(context)
+      @chapters = []
+      @context = context
+      @context.chapter_files.each(&method(:<<))
     end
 
     def each(&block)

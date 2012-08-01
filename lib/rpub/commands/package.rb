@@ -1,42 +1,14 @@
 module Rpub
   module Commands
-    class Package < Base
-      include CompilationHelpers
-
-      identifier 'package'
-
-      def invoke
-        super
-        Compile.new(options).invoke
-        return unless config.has_key?('package_file')
-        Compressor.open(config.fetch('package_file')) do |zip|
-          zip.store_file create_book.filename, File.read(create_book.filename)
-          config.fetch('package') { [] }.each do |file|
-            zip.compress_file file, File.read(file)
-          end
-        end
-      end
-
-    private
-
-      def parser
-        OptionParser.new do |opts|
-          opts.banner = <<-EOS
-Usage: rpub package
-
-Compile your ebook to an ePub file and package it into an archive together with
-optional other files for easy distibution. You might want to include a README
-file, a license or other promotion material.
-
-Options:
-EOS
-          opts.separator ''
-          opts.separator 'Generic options:'
-          opts.separator ''
-
-          opts.on_tail '-h', '--help', 'Display this message' do
-            puts opts
-            exit
+    class Package < Command
+      def run
+        Compile.new(args, options)
+        if context.config['package_file']
+          Rpub::Compressor.open(context.config['package_file']) do |zip|
+            zip.store_file book.filename, source.read(book.filename)
+            Array(context.config['package']).each do |file|
+              zip.compress_file file, source.read(file)
+            end
           end
         end
       end

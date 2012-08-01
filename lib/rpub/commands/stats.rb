@@ -1,12 +1,8 @@
 module Rpub
   module Commands
-    class Stats < Base
-      identifier 'stats'
-      include CompilationHelpers
-
-      def invoke
-        super
-        text = Nokogiri::HTML(concatenated_document.to_html).xpath('//text()').to_s
+    class Stats < Command
+      def run
+        text = Rpub::Preview.new(context, source).text
         puts "#{text.words.size} words"
         puts "#{(text.words.size.to_f / 500).ceil} pages"
         puts "#{text.sentences} sentences"
