@@ -8,7 +8,7 @@ module Rpub
 
     def formatted
       return unless context.chapter_files.any?
-      move_styles_inline(Typogruby.improve(plain))
+      move_styles_inline(plain)
     end
 
     def text
@@ -18,10 +18,7 @@ module Rpub
     private
 
     def plain
-      Kramdown::Document.new(
-        context.chapter_files.join("\n"),
-        KRAMDOWN_OPTIONS.merge(:template => context.layout)
-      ).to_html
+      Document.new(context.chapter_files.join("\n"), context.layout).to_html
     end
 
     def move_styles_inline(html)

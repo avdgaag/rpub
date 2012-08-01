@@ -1,6 +1,6 @@
 module Rpub
   class Context
-    include FilesystemSource
+    include Rpub.source
 
     def initialize(options = {})
       @config_file = options[:config]

@@ -1,6 +1,6 @@
 module Rpub
   class Epub
-    include FilesystemSource
+    include Rpub.source
     attr_reader :book, :styles
 
     def initialize(book, styles)

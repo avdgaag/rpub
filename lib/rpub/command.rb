@@ -26,7 +26,7 @@ module Rpub
     end
 
     def source
-      @source ||= Rpub::FilesystemSource
+      @source ||= Rpub.source
     end
   end
 end

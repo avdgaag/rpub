@@ -1,5 +1,9 @@
 module Rpub
   class Document
+    KRAMDOWN_OPTIONS = {
+      :coderay_line_numbers => nil
+    }
+
     OutlineElement = Struct.new(:level, :text, :html_id)
 
     def initialize(content, layout)

@@ -18,7 +18,7 @@ module Rpub
 
     def initialize(content, number, layout)
       @content, @number, @layout = content, number, layout
-      @document = Document.new(content, layout)
+      @document = Rpub.document_factory.call(content, layout)
     end
 
     # @return [String] Unique identifier for this chapter.

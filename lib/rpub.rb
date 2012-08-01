@@ -13,6 +13,23 @@ require 'nokogiri'
 require 'textstats'
 require 'typogruby'
 
+module Rpub
+  GEM_ROOT = File.expand_path('../../', __FILE__)
+
+  # @return [String] full path to a file that was relative to the gem support directory
+  def self.support_file(path)
+    File.join(GEM_ROOT, 'support', path)
+  end
+
+  def self.source
+    FilesystemSource
+  end
+
+  def self.document_factory
+    Rpub::Document.public_method(:new)
+  end
+end
+
 require 'rpub/version'
 require 'rpub/filesystem_source'
 require 'rpub/context'
@@ -37,24 +54,3 @@ require 'rpub/epub/html_toc'
 require 'rpub/epub/cover'
 require 'rpub/media_type'
 require 'rpub/document'
-
-module Rpub
-  GEM_ROOT = File.expand_path('../../', __FILE__)
-
-  NoConfiguration = Class.new(StandardError)
-
-  class InvalidSubcommand < StandardError
-    def initialize(subcommand)
-      super "Unknown subcommand: #{subcommand}"
-    end
-  end
-
-  # @return [String] full path to a file that was relative to the gem support directory
-  def self.support_file(path)
-    File.join(GEM_ROOT, 'support', path)
-  end
-
-  KRAMDOWN_OPTIONS = {
-    :coderay_line_numbers => nil
-  }
-end
