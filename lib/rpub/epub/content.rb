@@ -20,14 +20,14 @@ module Rpub
         xml.declare! :DOCTYPE, :package, :PUBLIC,  '-//W3C//DTD XHTML 1.1//EN', 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'
         xml.package 'xmlns' => 'http://www.idpf.org/2007/opf', 'unique-identifier' => 'BookId', 'version' => '2.0' do
           xml.metadata 'xmlns:dc' => 'http://purl.org/dc/elements/1.1/', 'xmlns:opf' => 'http://www.idpf.org/2007/opf' do
-            xml.dc :language,    book.config.fetch('language')
-            xml.dc :title,       book.config.fetch('title')
-            xml.dc :creator,     book.config.fetch('creator'), 'opf:role' => 'aut'
-            xml.dc :publisher,   book.config.fetch('publisher')
-            xml.dc :subject,     book.config.fetch('subject')
+            xml.dc :language,    book.config.language
+            xml.dc :title,       book.config.title
+            xml.dc :creator,     book.config.creator, 'opf:role' => 'aut'
+            xml.dc :publisher,   book.config.publisher
+            xml.dc :subject,     book.config.subject
             xml.dc :identifier,  book.uid, :id => 'BookId'
-            xml.dc :rights,      book.config.fetch('rights')
-            xml.dc :description, book.config.fetch('description')
+            xml.dc :rights,      book.config.rights
+            xml.dc :description, book.config.description
 
             if book.has_cover?
               xml.meta :name => 'cover', :content => 'cover-image'

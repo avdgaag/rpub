@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rpub::Epub::HtmlToc do
   let(:outline) { [] }
   let(:book)    { double('book', :outline => outline, :config => config) }
-  let(:config)  { double('config', :fetch => 1) }
+  let(:config)  { OpenStruct.new({ 'max_level' => 1 }) }
   let(:subject) { described_class.new(book).render }
 
   it { should have_xpath('/div/h1[text()="Table of Contents"]') }

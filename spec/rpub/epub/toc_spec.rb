@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rpub::Epub::Toc do
   let(:chapters) { [] }
-  let(:config)   { { 'title' => 'title' } }
+  let(:config)   { OpenStruct.new({ 'title' => 'title' }) }
   let(:book)     { double('book', :uid => 'foo', :chapters => chapters, :config => config) }
   let(:subject)  { described_class.new(book).render }
 
@@ -30,7 +30,7 @@ describe Rpub::Epub::Toc do
     it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navPoint/xmlns:content[@src="filename#bar"]') }
 
     context 'with low max_level' do
-      let(:config) { { 'title' => 'title', 'max_level' => 1 } }
+      let(:config) { OpenStruct.new({ 'title' => 'title', 'max_level' => 1 }) }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint[@id="foo"]') }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:navLabel/xmlns:text[text()="chapter title"]') }
       it { should have_xpath('/xmlns:ncx/xmlns:navMap/xmlns:navPoint/xmlns:content[@src="filename#foo"]') }

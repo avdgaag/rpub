@@ -74,29 +74,29 @@ describe Rpub::Book do
     end
 
     it 'should not have a cover with a config key that is false' do
-      context.should_receive(:config).and_return({ 'cover_image' => false })
+      context.should_receive(:config).and_return(OpenStruct.new({ 'cover_image' => false }))
       should_not have_cover
     end
 
     it 'should have a cover with a config key' do
-      context.should_receive(:config).and_return({ 'cover_image' => true })
+      context.should_receive(:config).and_return(OpenStruct.new({ 'cover_image' => true }))
       should have_cover
     end
   end
 
   describe '#has_toc?' do
     it 'should not have a toc without a config key' do
-      context.should_receive(:config).and_return({})
+      context.should_receive(:config).and_return(OpenStruct.new)
       should_not have_toc
     end
 
     it 'should not have a toc with a config key that is false' do
-      context.should_receive(:config).and_return({ 'toc' => false })
+      context.should_receive(:config).and_return(OpenStruct.new({ 'toc' => false }))
       should_not have_toc
     end
 
     it 'should have a toc with a config key' do
-      context.should_receive(:config).and_return({ 'toc' => true })
+      context.should_receive(:config).and_return(OpenStruct.new({ 'toc' => true }))
       should have_toc
     end
   end

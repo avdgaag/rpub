@@ -26,11 +26,11 @@ module Rpub
     end
 
     def has_toc?
-      !!config.fetch('toc') { false }
+      !!config.toc
     end
 
     def has_cover?
-      !!config.fetch('cover_image') { false }
+      !!config.cover_image
     end
 
     def outline
@@ -64,7 +64,7 @@ module Rpub
     # @return [String] output filename for epub, based on the book title and
     #   version number.
     def filename
-      @filename ||= [config['title'], config['version']].join('-').gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.epub'
+      @filename ||= [config.title, config.version].join('-').gsub(/[^\w\.]/i, '-').squeeze('-').downcase.chomp('-') + '.epub'
     end
   end
 end

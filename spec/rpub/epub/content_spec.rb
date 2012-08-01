@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rpub::Epub::Content do
   let(:config) do
-    {
+    OpenStruct.new({
       'creator'     => 'anonymous',
       'title'       => 'title',
       'language'    => 'en',
@@ -10,7 +10,7 @@ describe Rpub::Epub::Content do
       'description' => 'foo bar',
       'subject'     => 'baz qux',
       'rights'      => 'copyright',
-    }
+    })
   end
   let(:book) do
     double('book', {

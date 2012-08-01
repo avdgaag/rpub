@@ -9,7 +9,7 @@ module Rpub
     end
 
     def config
-      @config ||= YAML.load_file(config_file) || {}
+      @config ||= OpenStruct.new(YAML.load_file(config_file) || {})
     end
 
     # @return [String] path to the current layout file (defaulting to built-in)
@@ -40,14 +40,9 @@ module Rpub
       @config_file ||= own_or_support_file('config.yml')
     end
 
-    def own_or_support_file(filename)
-      return filename if exists?(filename)
-      Rpub.support_file(filename)
-    end
-
     def filter_exceptions(filenames)
-      return filenames unless config[:ignore]
-      filenames.reject(&config[:ignore].method(:include?))
+      return filenames unless config.ignore
+      filenames.reject(&config.ignore.method(:include?))
     end
   end
 end
