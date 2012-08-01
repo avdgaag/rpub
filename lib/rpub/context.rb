@@ -1,5 +1,7 @@
 module Rpub
   class Context
+    include FilesystemSource
+
     def initialize(options = {})
       @config_file = options[:config]
       @layout      = options[:layout]
@@ -21,7 +23,7 @@ module Rpub
     end
 
     def fonts
-      @fonts ||= File.read(styles).scan(/url\((?:'|")?([^'")]+\.otf)(?:'|")?\)/i).flatten
+      @fonts ||= read(styles).scan(/url\((?:'|")?([^'")]+\.otf)(?:'|")?\)/i).flatten
     end
 
     # All chapter input files loaded into strings. This does not include any of
@@ -29,7 +31,7 @@ module Rpub
     #
     # @return [Array<String>]
     def chapter_files
-      @chapter_files ||= filter_exceptions(Dir['*.md']).sort.map(&File.method(:read))
+      @chapter_files ||= filter_exceptions(source_files).sort.map(&method(:read))
     end
 
     private
@@ -39,7 +41,7 @@ module Rpub
     end
 
     def own_or_support_file(filename)
-      return filename if File.exists?(filename)
+      return filename if exists?(filename)
       Rpub.support_file(filename)
     end
 

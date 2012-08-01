@@ -1,7 +1,17 @@
 module Rpub
   module FilesystemSource
+    module_function
+
     def read(filename)
       File.read(filename)
+    end
+
+    def exists?(filename)
+      File.exists?(filename)
+    end
+
+    def source_files
+      Dir['*md']
     end
 
     def write(filename, content, force = false)
@@ -29,6 +39,9 @@ module Rpub
       end
     end
 
-    extend self
+    def own_or_support_file(filename)
+      return filename if exists?(filename)
+      Rpub.support_file(filename)
+    end
   end
 end
