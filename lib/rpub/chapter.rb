@@ -13,6 +13,8 @@ module Rpub
     # @return [String] filename of the layout to use, to be passed directly to the Kramdown gem.
     attr_reader :layout
 
+    OutlineElement = Struct.new(:level, :text, :html_id)
+
     def initialize(content, number, layout)
       @content, @number, @layout = content, number, layout
       @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
@@ -46,14 +48,14 @@ module Rpub
     # Ordered headers for this chapter, each header as an object responding
     # to #level and #text.
     #
-    # @return [Array<#text,#level>] list of headers for this chapter
+    # @return [Array<#text,#level,#html_id>] list of headers for this chapter
     def outline
       @outline ||= elements(:header).map do |element|
-        OpenStruct.new({
-          :level   => element.options[:level],
-          :text    => element_text(element),
-          :html_id => Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
-        })
+        OutlineElement.new(
+          element.options[:level],
+          element_text(element),
+          Kramdown::Converter::Html.send(:new, @document, { :auto_id_prefix => '' }).generate_id(element.options[:raw_text])
+        )
       end
     end
 
