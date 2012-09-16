@@ -32,7 +32,7 @@ module Rpub
 
             if book.has_cover?
               xml.item 'id' => 'cover', 'href' => 'cover.html', 'media-type' => 'application/xhtml+xml'
-              xml.item 'id' => 'cover-image', 'href' => book.cover_image, 'media-type' => MediaType.guess_media_type(book.cover_image)
+              xml.item 'id' => 'cover-image', 'href' => book.config.cover_image, 'media-type' => MediaType.guess_media_type(book.config.cover_image)
             end
 
             book.images.each do |image|

@@ -10,6 +10,7 @@ describe Rpub::Epub::Content do
       'description' => 'foo bar',
       'subject'     => 'baz qux',
       'rights'      => 'copyright',
+      'cover_image' => 'image.jpg'
     })
   end
   let(:book) do
@@ -47,7 +48,7 @@ describe Rpub::Epub::Content do
   end
 
   context 'when the book has a cover' do
-    before { book.stub! :has_cover? => true, :cover_image => 'foo.jpg' }
+    before { book.stub! :has_cover? => true; config.stub! :cover_image => 'foo.jpg' }
     it { should have_xpath('/xmlns:package/xmlns:manifest/xmlns:item[@id="cover"][@href="cover.html"][@media-type="application/xhtml+xml"]') }
     it { should have_xpath('/xmlns:package/xmlns:manifest/xmlns:item[@id="cover-image"][@href="foo.jpg"][@media-type="image/jpeg"]') }
     it { should have_xpath('/xmlns:package/xmlns:metadata/xmlns:meta[@name="cover"][@content="cover-image"]') }

@@ -15,7 +15,7 @@ module Rpub
       target.compress_file 'OEBPS/styles.css',       styles
       if book.has_cover?
         target.compress_file 'OEBPS/cover.html', Cover.new(book)
-        target.compress_file File.join('OEBPS', book.cover_image), read(book.cover_image)
+        target.compress_file File.join('OEBPS', book.config.cover_image), read(book.config.cover_image)
       end
       if book.has_toc?
         target.compress_file 'OEBPS/toc.html', toc { HtmlToc.new(book).render }

@@ -10,7 +10,7 @@ module Rpub
           end
           xml.body do
             xml.div :id => 'cover-image' do
-              xml.img :src => book.cover_image, :alt => book.title
+              xml.img :src => book.config.cover_image, :alt => book.config.title
             end
           end
         end
