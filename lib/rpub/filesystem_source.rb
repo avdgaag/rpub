@@ -11,7 +11,7 @@ module Rpub
     end
 
     def source_files
-      Dir['*md']
+      Dir['*{.md,.markdown,.mdown,.markd}']
     end
 
     def write(filename, content, force = false)

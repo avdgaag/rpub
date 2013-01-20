@@ -10,11 +10,19 @@ Feature: Compilation
 
         lorem ipsum
         """
+        And a file named "chapter2.markdown" with:
+        """
+        # Goodbye, world
+
+        lorem ipsum
+        """
 
     Scenario: generate epub file
         Given the default "config.yml" file
         When I successfully run `rpub compile`
         Then a file named "untitled-book-0.0.0.epub" should exist
+        And the archive "untitled-book-0.0.0.epub" should contain file "OEBPS/chapter-0-hello-world.html"
+        And the archive "untitled-book-0.0.0.epub" should contain file "OEBPS/chapter-1-goodbye-world.html"
 
     Scenario: file versioning
         Given the default "config.yml" file with:
