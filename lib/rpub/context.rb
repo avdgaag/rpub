@@ -23,7 +23,7 @@ module Rpub
     end
 
     def fonts
-      @fonts ||= read(styles).scan(/url\((?:'|")?([^'")]+\.otf)(?:'|")?\)/i).flatten
+      @fonts ||= read(styles).scan(/url\((?:'|")?([^'")]+\.[ot]tf)(?:'|")?\)/i).flatten
     end
 
     # All chapter input files loaded into strings. This does not include any of

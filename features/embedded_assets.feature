@@ -32,10 +32,19 @@ Feature: embedding assets
         p {
             font-family: Foo;
         }
+        @font-face {
+            font-family: Bar;
+            src: url('Bar.ttf');
+        }
+        p {
+            font-family: Bar;
+        }
         """
         And an empty file named "Foo.otf"
+        And an empty file named "Bar.ttf"
         When I successfully run `rpub compile`
         Then the archive "untitled-book-0.0.0.epub" should contain file "OEBPS/Foo.otf"
+        And the archive "untitled-book-0.0.0.epub" should contain file "OEBPS/Bar.ttf"
 
     Scenario: embedding images
         When I successfully run `rpub compile`
