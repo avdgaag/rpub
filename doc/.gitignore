@@ -1,0 +1,8 @@
+.bundle
+.yardoc
+bin
+doc
+TODO
+pkg
+coverage
+_site

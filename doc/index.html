@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rpub by avdgaag</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rpub</h1>
+        <p>an ePub generation library in Ruby</p>
+        <p class="view"><a href="https://github.com/avdgaag/rpub">View the Project on GitHub <small>avdgaag/rpub</small></a></p>
+        <p class="view"><a href="http://rubydoc.info/github/avdgaag/rpub/master/frames">View the API docs <small>rubydoc.info</small></a></p>
+        <ul>
+          <li><a href="https://github.com/avdgaag/rpub/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/avdgaag/rpub/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/avdgaag/rpub">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+<h1>Rpub – an ePub generator in Ruby <a href="http://travis-ci.org/avdgaag/rpub"><img src="https://secure.travis-ci.org/avdgaag/rpub.png?branch=master" alt="Build Status" /></a> <a href="https://gemnasium.com/avdgaag/rpub"><img src="https://gemnasium.com/avdgaag/rpub.png" alt="Gemnasium dependency status" /></a></h1>
+
+<h2>Introduction</h2>
+
+<p>Rpub is a command-line tool that generates a collection of plain text&nbsp;input
+files into an eBook in ePub format. It provides several related functions&nbsp;to
+make working with ePub files a little&nbsp;easier:</p>
+
+<ul>
+  <li>Generation of table of&nbsp;contents</li>
+  <li>Packaging your eBook in an archive with additional <span class="caps">README</span>&nbsp;file</li>
+  <li>Embedding&nbsp;fonts</li>
+  <li>Easy previewing as you&nbsp;write</li>
+  <li>.mobi&nbsp;compatibility</li>
+</ul>
+
+<h2>Installation</h2>
+
+<p>Rpub is distributed as a Ruby gem, which should be installed on most Macs&nbsp;and
+Linux systems. Once you have ensured you have a working installation of&nbsp;Ruby
+and Ruby gems, install the gem as follows from the command&nbsp;line:</p>
+
+<pre><code>$ gem install rpub
+</code></pre>
+
+<p>You can verify the gem has installed correctly by checking its version&nbsp;number:</p>
+
+<pre><code>$ rpub -v
+</code></pre>
+
+<p>If this generates an error, something has gone wrong. You should see&nbsp;something
+along the lines of&nbsp;<code>rpub 1.0.0</code>.</p>
+
+<h2>Usage</h2>
+
+<h3>Basics</h3>
+
+<p>ePubs are basically collections of <span class="caps">HTML</span> files, combined in a single&nbsp;archive
+according to a set of predefined rules. Rpub generates these files for you&nbsp;from
+simple text files written in <a href="http://daringfireball.net/projects/markdown">Markdown</a>, a very readable markup language&nbsp;created
+by <a href="http://daringfireball.net">John Gruber</a>. This very <span class="caps">README</span> file is an example of a Markdown&nbsp;document.</p>
+
+<p>The idea is you write several Markdown files using your favourite text&nbsp;editor,
+and save them as plain text in your project directory. Usually you would&nbsp;write
+one file per chapter. By invoking the <code>rpub</code> program you convert those files&nbsp;to
+<span class="caps">HTML</span> and combine them in an ePub&nbsp;archive:</p>
+
+<pre><code>$ rpub compile
+Generating my-new-book-0.1.0.epub... Done!
+</code></pre>
+
+<p>After you have run the <code>rpub compile</code> command, you will find a new <code>.epub</code>&nbsp;file
+in your project directory. The name of this file depends on the title of&nbsp;your
+book, and its version number. You can set these values, as well as a few&nbsp;others,
+in a special configuration file called&nbsp;<code>config.yml</code>:</p>
+
+<pre><code>---
+author: Your Name
+title: My new book
+version: 0.1.0
+</code></pre>
+
+<p>This file is written in <a href="http://yaml.org"><span class="caps">YAML</span></a> and sets basic properties&nbsp;of
+your book&nbsp;project.</p>
+
+<p>Since regenerating your ePub file and opening it in a suitable&nbsp;reader
+application is cumbersome, Rpub can generate a simple preview document for&nbsp;you:</p>
+
+<pre><code>$ rpub preview
+</code></pre>
+
+<p>This will generate a new <span class="caps">HTML</span> file in your project directory with a name&nbsp;similar
+to your ePub file. This is the entire text of your book as a single web page&nbsp;for
+easy viewing in any&nbsp;browser.</p>
+
+<h3>Generating a .mobi&nbsp;file</h3>
+
+<p>Since the ePub and Mobipocket file formats are very (<em>very</em>) similar it&nbsp;is
+quite easy to create a <code>.mobi</code> version of your book, suitable for reading&nbsp;on
+Amazon’s Kindle. To do so, you will need to install the <a href="http://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000765211">kindlegen&nbsp;program
+Amazon provides</a>.</p>
+
+<p>Here’s how it&nbsp;works:</p>
+
+<ol>
+  <li>Install <code>kindlegen</code> (<a href="http://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000765211">download it here</a>)</li>
+  <li>Compile your book as usual using&nbsp;<code>rpub compile</code></li>
+  <li>Compile <code>my-book.epub</code> to <code>my-book.mobi</code>:&nbsp;<code>kindlegen my-book.epub</code>.</li>
+</ol>
+
+<p>Optionally, include your <code>my-book.mobi</code> in your package by adding it to&nbsp;your
+list of packaged files (see “Packaging for&nbsp;distribution”).</p>
+
+<h3>Advanced&nbsp;features</h3>
+
+<h4>Packaging for&nbsp;distribution</h4>
+
+<p>Often you want to distribute your ebook over the internet, along with&nbsp;some
+extra files. You’ll probably want to include a <span class="caps">README</span> file, a license&nbsp;or
+references to extra online resources. A <code>package</code> task is defined to generate&nbsp;a
+single compressed archive file from your generated ebook along with&nbsp;such
+additional&nbsp;files.</p>
+
+<p>You list the files to include with your ebook in your <code>config.yml</code> file,&nbsp;along
+with the resulting packaged file&nbsp;name:</p>
+
+<pre><code>---
+package_file: mybook.zip
+package:
+  - README
+  - license.txt
+  - code-samples.rb
+</code></pre>
+
+<p>All the filenames listed under <code>package</code> are looked up in the root of&nbsp;your
+project directory. These files will be combined with the ebook in&nbsp;the
+<code>mybook.zip</code> file in your project&nbsp;directory.</p>
+
+<h4>Automatic table of&nbsp;contents</h4>
+
+<p>Rpub automatically generates a table of contents for you, if you want it to.&nbsp;It
+does this by scanning all your markdown files for headings and listing them&nbsp;on
+a single page in the ebook. Each entry in the table of contents is linked&nbsp;to
+its appropriate heading in the chapter, and has various hooks for&nbsp;your
+stylesheet to determine its&nbsp;formatting.</p>
+
+<p>To enable the automatic generation of a table of contents, add the&nbsp;following
+configuration to your <code>config.yml</code>&nbsp;file:</p>
+
+<pre><code>toc: true
+</code></pre>
+
+<p>Note that this only affects the human-readable table of contents,&nbsp;represented
+as a page in your book. Rpub will alway generate the .epub table of&nbsp;contents
+for you, which contains the machine-readable references to your chapters.&nbsp;It
+will, by default, reference all chapter titles and subheadings for you,&nbsp;but
+you can customize the number of levels that will be included using&nbsp;the
+following in your <code>config.yml</code>&nbsp;file:</p>
+
+<pre><code>max_level: 3
+</code></pre>
+
+<h4>Custom layout and&nbsp;styles</h4>
+
+<p>When you compile a set of Markdown files to an ePub file, rpub uses a&nbsp;default
+<span class="caps">HTML</span> layout and set of styles to determine the look and feel of the book.&nbsp;These
+will do fine for most cases, but you can provide your own, if you are&nbsp;so
+inclined.</p>
+
+<p>Simply define a <code>layout.html</code> and/or <code>styles.css</code> in your project&nbsp;directory.
+Your <span class="caps">HTML</span> file will be parsed with Erb, an so you can include your&nbsp;writing
+using the <code>@body</code> instance&nbsp;variable:</p>
+
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;%= @body %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>Note 1</strong>: this feature is actually provided by the <a href="http://kramdown.rubyforge.org">Kramdown gem</a>,
+so have a look at <a href="https://github.com/gettalong/kramdown/blob/master/data/kramdown/document.html">the standard Kramdown document template</a> to see&nbsp;some
+nifty&nbsp;tricks.</p>
+
+<p><strong>Note 2</strong>: despite the name ‘html’ and <code>.html</code> extension, your file actually&nbsp;has
+to be&nbsp;<span class="caps">XHTML</span>-compliant.</p>
+
+<p>You can also provide custom layouts or styles to use when invoking the&nbsp;<code>compile</code>
+or <code>preview</code> commands, using the <code>-l</code> or <code>-s</code>&nbsp;options:</p>
+
+<pre><code>$ rpub compile -l /tmp/my-layout.html
+</code></pre>
+
+<p>If you like the default layout or styles, but want to adapt them, you can&nbsp;copy
+those files into your project using the <code>generate</code>&nbsp;subcommand:</p>
+
+<pre><code>$ rpub generate
+</code></pre>
+
+<h3>Command&nbsp;reference</h3>
+
+<dl>
+  <dt><code>rpub compile</code></dt>
+  <dd>generate .epub&nbsp;file</dd>
+  <dt><code>rpub package</code></dt>
+  <dd>create zip file with compiled book and other listed&nbsp;files</dd>
+  <dt><code>rpub preview</code></dt>
+  <dd>generate preview <span class="caps">HTML</span>&nbsp;file</dd>
+  <dt><code>rpub generate</code></dt>
+  <dd>copy default layout.html, styles.css and&nbsp;config.yml</dd>
+  <dt><code>rpub help</code></dt>
+  <dd>get help on&nbsp;subcommands</dd>
+  <dt><code>rpub clean</code></dt>
+  <dd>remove generated&nbsp;files</dd>
+</dl>
+
+<h3>Configuration&nbsp;reference</h3>
+
+<dl>
+  <dt><code>title</code></dt>
+  <dd>the book title&nbsp;(string)</dd>
+  <dt><code>descrption</code></dt>
+  <dd>one-line summary of the book&nbsp;(string)</dd>
+  <dt><code>creator</code></dt>
+  <dd>author name&nbsp;(string)</dd>
+  <dt><code>publisher</code></dt>
+  <dd>publisher name&nbsp;(string)</dd>
+  <dt><code>subject</code></dt>
+  <dd>book subject/category&nbsp;(string)</dd>
+  <dt><code>language</code></dt>
+  <dd>language code of the book contents, e.g. ‘en’&nbsp;(string)</dd>
+  <dt><code>rights</code></dt>
+  <dd>copyright line&nbsp;(string)</dd>
+  <dt><code>version</code></dt>
+  <dd>version number of the book to include in the .epub filename&nbsp;(string)</dd>
+  <dt><code>toc</code></dt>
+  <dd>whether to generate a table of contents as book page (boolean, default&nbsp;false)</dd>
+  <dt><code>max_level</code></dt>
+  <dd>the maximum depth of the .epub table of contents (number, default&nbsp;2)</dd>
+  <dt><code>ignore</code></dt>
+  <dd>list of files not to include in the epub, that otherwise would&nbsp;(array)</dd>
+  <dt><code>package</code></dt>
+  <dd>list of files to be included in the archive created by the package task&nbsp;(array)</dd>
+</dl>
+
+<h3>Examples</h3>
+
+<p>See the <a href="https://github.com/avdgaag/rpub/tree/master/example">examples directory</a> for two example&nbsp;projects.</p>
+
+<h3>Documentation</h3>
+
+<p>See the inline <a href="http://rubydoc.info/github/avdgaag/rpub/master/frames"><span class="caps">API</span> docs</a> for more&nbsp;information.</p>
+
+<h2>Other</h2>
+
+<h3>Note on Patches/Pull&nbsp;Requests</h3>
+
+<ol>
+  <li>Fork the&nbsp;project.</li>
+  <li>Make your feature addition or bug&nbsp;fix.</li>
+  <li>Add tests for it. This is important so I don’t break it in a future&nbsp;version
+unintentionally.</li>
+  <li>Commit, do not mess with rakefile, version, or history. (if you want to&nbsp;have
+your own version, that is fine but bump version in a commit by itself I&nbsp;can
+ignore when I&nbsp;pull)</li>
+  <li>Send me a pull request. Bonus points for topic&nbsp;branches.</li>
+</ol>
+
+<h3>Issues</h3>
+
+<p>Please report any issues, defects or suggestions in the <a href="https://github.com/avdgaag/rpub/issues">Github&nbsp;issue
+tracker</a>.</p>
+
+<h3>What has&nbsp;changed?</h3>
+
+<p>See the <a href="https://github.com/avdgaag/rpub/blob/master/HISTORY.md"><span class="caps">HISTORY</span></a> file for a detailed&nbsp;changelog.</p>
+
+<h3>Credits</h3>
+
+<p>Created by: Arjan van der Gaag<br />
+<span class="caps">URL</span>: <a href="http://arjanvandergaag.nl">http://arjanvandergaag.nl</a><br />
+Project homepage: <a href="http://avdgaag.github.com/rpub">http://avdgaag.github.com/rpub</a><br />
+Date: april 2012<br />
+License: <a href="https://github.com/avdgaag/rpub/LICENSE"><span class="caps">MIT</span>-license</a> (same as&nbsp;Ruby)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/avdgaag">avdgaag</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-20357800-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
