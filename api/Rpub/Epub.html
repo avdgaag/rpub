@@ -1,0 +1,465 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Rpub::Epub
+  
+    &mdash; Rpub, a simple ePub generator library in Ruby
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Rpub.html" title="Rpub (module)">Rpub</a></span></span>
+     &raquo; 
+    <span class="title">Epub</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Rpub::Epub
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Rpub::Epub</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/rpub/epub.rb<span class="defines">,<br />
+  lib/rpub/epub/toc.rb,<br /> lib/rpub/epub/cover.rb,<br /> lib/rpub/epub/content.rb,<br /> lib/rpub/epub/html_toc.rb,<br /> lib/rpub/epub/container.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Epub/Container.html" title="Rpub::Epub::Container (class)">Container</a></span>, <span class='object_link'><a href="Epub/Content.html" title="Rpub::Epub::Content (class)">Content</a></span>, <span class='object_link'><a href="Epub/Cover.html" title="Rpub::Epub::Cover (class)">Cover</a></span>, <span class='object_link'><a href="Epub/HtmlToc.html" title="Rpub::Epub::HtmlToc (class)">HtmlToc</a></span>, <span class='object_link'><a href="Epub/Toc.html" title="Rpub::Epub::Toc (class)">Toc</a></span>
+    
+  
+</p>
+
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#book-instance_method" title="#book (instance method)">- (Object) <strong>book</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute book.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#styles-instance_method" title="#styles (instance method)">- (Object) <strong>styles</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute styles.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Epub) <strong>initialize</strong>(book, styles) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of Epub.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#manifest_in-instance_method" title="#manifest_in (instance method)">- (Object) <strong>manifest_in</strong>(target) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Rpub::Epub (class)">Epub</a></span></tt>) <strong>initialize</strong>(book, styles) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>A new instance of Epub</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rpub/epub.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='comma'>,</span> <span class='id identifier rubyid_styles'>styles</span><span class='rparen'>)</span>
+  <span class='ivar'>@book</span><span class='comma'>,</span> <span class='ivar'>@styles</span> <span class='op'>=</span> <span class='id identifier rubyid_book'>book</span><span class='comma'>,</span> <span class='id identifier rubyid_styles'>styles</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="book-instance_method">
+  
+    - (<tt>Object</tt>) <strong>book</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute book</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rpub/epub.rb', line 4</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_book'>book</span>
+  <span class='ivar'>@book</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="styles-instance_method">
+  
+    - (<tt>Object</tt>) <strong>styles</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute styles</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rpub/epub.rb', line 4</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_styles'>styles</span>
+  <span class='ivar'>@styles</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="manifest_in-instance_method">
+  
+    - (<tt>Object</tt>) <strong>manifest_in</strong>(target) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rpub/epub.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_manifest_in'>manifest_in</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_store_file'>store_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mimetype</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/epub+zip</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>META-INF/container.xml</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='const'>Container</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS/content.opf</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>      <span class='const'>Content</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS/toc.ncx</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>          <span class='const'>Toc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS/styles.css</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>       <span class='id identifier rubyid_styles'>styles</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_has_cover?'>has_cover?</span>
+    <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS/cover.html</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='const'>Cover</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_cover_image'>cover_image</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_cover_image'>cover_image</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_has_toc?'>has_toc?</span>
+    <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS/toc.html</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_toc'>toc</span> <span class='lbrace'>{</span> <span class='const'>HtmlToc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_book'>book</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render'>render</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_has_fonts?'>has_fonts?</span>
+    <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_fonts'>fonts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_font'>font</span><span class='op'>|</span>
+      <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_font'>font</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_font'>font</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chapter'>chapter</span><span class='op'>|</span>
+    <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_chapter'>chapter</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_chapter'>chapter</span><span class='period'>.</span><span class='id identifier rubyid_to_html'>to_html</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_book'>book</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_image'>image</span><span class='op'>|</span>
+    <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_compress_file'>compress_file</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OEBPS</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_image'>image</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_image'>image</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Sat Mar 30 10:36:04 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.5.2 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>
