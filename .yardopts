@@ -3,6 +3,7 @@
 --readme README.md
 --markup markdown
 --markup-provider kramdown
+--output-dir doc/api
 -
 HISTORY.md
 LICENSE
