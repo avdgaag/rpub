@@ -3,6 +3,11 @@ if RUBY_VERSION >= '1.9' && ENV.has_key?('COVERAGE')
   SimpleCov.start
 end
 
+if ENV.has_key?('TRAVIS')
+  require 'coveralls'
+  Coveralls.wear!
+end
+
 require 'rpub'
 require 'nokogiri'
 

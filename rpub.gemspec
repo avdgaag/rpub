@@ -54,5 +54,6 @@ EOS
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'cucumber'
   s.add_development_dependency 'aruba'
+  s.add_development_dependency 'coveralls'
 end
 
