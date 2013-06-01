@@ -13,6 +13,12 @@ require 'nokogiri'
 
 FIXTURES_DIRECTORY = File.expand_path('../fixtures', __FILE__)
 
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
+
 RSpec::Matchers.define :remove_file do |filename|
   match do |block|
     before = File.exist?(filename)

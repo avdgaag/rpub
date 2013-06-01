@@ -17,13 +17,13 @@ describe Rpub::Book do
 
     it 'should allow chaining multiple calls' do
       subject << 'foo' << 'bar'
-      subject.should have(3).chapters
+      expect(subject).to have(3).chapters
     end
 
     it 'should yield chapters' do
       yielded = false
       subject.each { |c| yielded = true }
-      yielded.should be_true
+      expect(yielded).to be_true
     end
   end
 
@@ -41,11 +41,11 @@ describe Rpub::Book do
 
   describe '#uid' do
     it 'should change when chapters change' do
-      described_class.new(context).add_chapter('foo').should_not == subject.uid
+      expect(described_class.new(context).add_chapter('foo')).to_not eql(subject.uid)
     end
 
     it 'should change when config changes' do
-      described_class.new(context).should_not == subject.uid
+      expect(described_class.new(context)).to_not eql(subject.uid)
     end
   end
 
@@ -53,18 +53,18 @@ describe Rpub::Book do
     before { context.should_receive(:chapter_files).and_return([]) }
 
     it 'should return empty array when there are no chapters' do
-      subject.outline.should be_empty
+      expect(subject.outline).to be_empty
     end
 
     it 'should return combination of all chapter outlines with filename' do
       subject << '# foo' << '# bar'
-      subject.outline.should have(2).elements
+      expect(subject.outline).to have(2).elements
     end
 
     it 'should combine chapter outlines' do
       subject << '# foo' << '# bar'
-      subject.outline.first[0].should == 'chapter-0-foo.html'
-      subject.outline.first[1][0].text.should == 'foo'
+      expect(subject.outline.first[0]).to eql('chapter-0-foo.html')
+      expect(subject.outline.first[1][0].text).to eql('foo')
     end
   end
 

@@ -9,15 +9,15 @@ describe Rpub::Chapter do
 
   describe '#uid' do
     it 'should change when content changes' do
-      subject.uid.should_not == described_class.new('bar', 1, 'bar').uid
+      expect(subject.uid).to_not eql(described_class.new('bar', 1, 'bar').uid)
     end
 
     it 'should change when layout changes' do
-      subject.uid.should_not == described_class.new('foo', 1, 'qux').uid
+      expect(subject.uid).to_not eql(described_class.new('foo', 1, 'qux').uid)
     end
 
     it 'should change when content changes' do
-      subject.uid.should_not == described_class.new('foo', 2, 'bar').uid
+      expect(subject.uid).to_not eql(described_class.new('foo', 2, 'bar').uid)
     end
   end
 
@@ -75,7 +75,7 @@ describe Rpub::Chapter do
   describe '#outline' do
     let(:subject) { described_class.new("# foo\n\nbla bla bla \n\n## bar\n\n# baz", 1, nil) }
     it 'should list headings in order' do
-      subject.outline.map(&:text).should == %w[foo bar baz]
+      expect(subject.outline.map(&:text)).to eql(%w[foo bar baz])
     end
   end
 end
