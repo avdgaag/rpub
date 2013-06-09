@@ -1,0 +1,246 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'prawn'
+require 'pp'
+require 'kramdown'
+require 'pathname'
+
+module Kramdown
+  module Converter
+    class Pdf < Base
+      attr_reader :pdf, :dispatcher
+
+      def initialize(root, options)
+        super
+        @pdf = Prawn::Document.new(page_size: 'A4', left_margin: 50, right_margin: 100, top_margin: 75, bottom_margin: 75)
+        @pdf.font 'Times-Roman', size: 12
+        @pdf.default_leading 4
+        @pdf.default_kerning true
+        @style = {}
+        @footnotes = []
+        @dispatcher = Hash.new do |hash, key|
+          hash[key] = "convert_#{key}"
+        end
+      end
+
+      def convert(el, i = 0)
+        send dispatcher[el.type], el, i
+      end
+
+      protected
+
+      def with_options(options = {})
+        old_style = @style
+        @style = @style.dup
+        merge_styles @style, options
+        ret = yield
+        @style = old_style
+        ret
+      end
+
+      def merge_styles(a, b)
+        a[:styles] = (a.fetch(:styles, []) + b[:styles]).uniq if b.has_key? :styles
+        a[:font]   = b[:font]              if b.has_key? :font
+        a[:size]   = b[:size]              if b.has_key? :size
+        a[:link]   = b[:link]              if b.has_key? :link
+      end
+
+      def styled_text(text, styles = {})
+        output          = @style.dup
+        output[:text]   = text
+        merge_styles output, styles
+        output
+      end
+
+      def convert_text(el, i = 0)
+        styled_text el.value.gsub(/\n/, ' ').squeeze(' ')
+      end
+
+      def convert_typographic_sym(el, i = 0)
+        styled_text({ hellip: '⋯', ndash: '–', mdash: '—' }.fetch(el.value))
+      end
+
+      def convert_strong(el, i = 0)
+        with_options(styles: [:bold]) do
+          convert_children(el)
+        end
+      end
+
+      def convert_br(el, i = 0)
+        styled_text "\n"
+      end
+
+      def convert_em(el, i = 0)
+        with_options(styles: [:italic]) do
+          convert_children(el)
+        end
+      end
+
+      def convert_a(el, i = 0)
+        with_options styles: [:underline], link: el.attr['href'] do
+          convert_children(el)
+        end
+      end
+
+      def convert_abbreviation(el, i = 0)
+        convert_children(el)
+      end
+
+      def convert_smart_quote(el, i = 0)
+        styled_text({ ldquo: '“', rdquo: '”', lsquo: '‘', rsquo: '’' }.fetch(el.value))
+      end
+
+      def convert_footnote(el, i = 0)
+        @footnotes << el
+        styled_text el.options[:name], styles: [:superscript]
+      end
+
+      def convert_img(el, i = 0)
+        styled_text ''
+      end
+
+      def convert_codeblock(el, i = 0)
+        line
+        pdf.font 'Courier', size: 9 do
+          pdf.text(el.value.gsub(/^ +/) { |m| Prawn::Text::NBSP * m.size })
+        end
+        line
+        @last_block_element = el
+      end
+
+      def with_bullet(bullet)
+        @bullets ||= []
+        @bullets.push bullet
+        ret = yield
+        @bullets.pop
+        ret
+      end
+
+      def convert_ul(el, i = 0)
+        line
+        with_bullet '•' do
+          block_element(el)
+        end
+      end
+
+      def bullet(index)
+        case @bullets.last
+        when :numbered then (index + 1).to_s + '.'
+        when String then @bullets.last
+        else raise "Unknown bullet type #{@bullets.last}"
+        end
+      end
+
+      def convert_ol(el, i = 0)
+        line
+        with_bullet :numbered do
+          block_element(el)
+        end
+      end
+
+      def convert_dl(el, i = 0)
+        convert_children(el)
+      end
+
+      def convert_dt(el, i = 0)
+        with_options styles: [:bold] do
+          convert_children(el)
+        end
+      end
+
+      def convert_dd(el, i = 0)
+        convert_children(el)
+      end
+
+      def convert_li(el, i = 0)
+        pdf.text bullet(i)
+        pdf.move_up 17.5
+        @last_block_element = el
+        pdf.indent(20) do
+          block_element(el)
+        end
+      end
+
+      def convert_codespan(el, i = 0)
+        styled_text el.value, font: 'Courier', size: 9
+      end
+
+      def convert_p(el, i = 0)
+        block_element(el)
+      end
+
+      def convert_blank(el, i = 0)
+        # no-op
+      end
+
+      def convert_children(el, i = 0)
+        el.children.each_with_index.map { |child, i| convert(child, i) }.flatten.compact
+      end
+
+      def block_element(el)
+        texts = convert_children(el)
+        texts.unshift({ text: Prawn::Text::NBSP * 5 }) if should_indent?(el)
+        @last_block_element = el
+        pdf.formatted_text(texts)
+      end
+
+      def should_indent?(el)
+        @last_block_element && @last_block_element.type == :p && el.type == :p
+      end
+
+      def convert_header(el, i = 0)
+        styles = [nil,
+          { font: 'Helvetica', size: 24, styles: [:bold] },
+          { font: 'Helvetica', size: 18, styles: [:bold] },
+          { font: 'Times-Roman', size: 12, styles: [:italic] },
+          { font: 'Times-Roman', size: 12, styles: [:italic] }
+        ]
+
+        spacing = [nil, :break, 2, 1, 1].fetch(el.options[:level])
+        if spacing == :break
+          pdf.start_new_page
+        else
+          lines spacing
+        end
+
+        with_options styles.fetch(el.options[:level]) do
+          block_element(el)
+        end
+      end
+
+      def lines(n = 1)
+        pdf.move_down n * 17
+      end
+      alias_method :line, :lines
+
+      def render_footnotes
+        return unless @footnotes.any?
+        pdf.stroke_color '999999'
+        pdf.stroke do
+          pdf.horizontal_line 0, 150
+        end
+        pdf.move_down 17
+        @footnotes.each do |footnote|
+          pdf.font_size 10 do
+            pdf.text footnote.options[:name]
+            pdf.move_up 15
+            pdf.indent(15) do
+              block_element(footnote.value)
+            end
+          end
+        end
+      end
+
+      def convert_root(el, i = 0)
+        convert_children(el)
+        render_footnotes
+        pdf
+      end
+    end
+  end
+end
+
+content = Pathname.glob('*.md').reject { |f| f.to_s =~ /README/ }.map(&:read).join
+pdf = Kramdown::Document.new(content).to_pdf
+pdf.render_file('example.pdf')
