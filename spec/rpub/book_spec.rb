@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rpub::Book do
   let(:context) { Rpub::Context.new }
   let(:subject) { described_class.new(context) }
-  before        { context.stub! :chapter_files => ['foo'] }
+  before        { context.stub :chapter_files => ['foo'] }
   it            { should respond_to(:config) }
 
   describe 'chapters' do
