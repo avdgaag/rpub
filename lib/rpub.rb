@@ -8,7 +8,7 @@ require 'forwardable'
 
 require 'builder'
 require 'kramdown'
-require 'zip/zip'
+require 'zip'
 require 'nokogiri'
 require 'textstats'
 require 'typogruby'

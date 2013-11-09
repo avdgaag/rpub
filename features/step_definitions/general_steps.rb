@@ -27,7 +27,7 @@ end
 
 Then /^the archive "(.*?)" should contain file "(.*?)"$/ do |filename, entry|
   in_current_dir do
-    Zip::ZipFile.open(filename, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(filename, Zip::File::CREATE) do |zipfile|
       zipfile.get_entry(entry)
     end
   end
@@ -35,7 +35,7 @@ end
 
 Then /^the archive "(.*?)" should not contain file "(.*?)"$/ do |filename, entry|
   in_current_dir do
-    Zip::ZipFile.open(filename, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(filename, Zip::File::CREATE) do |zipfile|
       zipfile.find_entry(entry).should be_nil
     end
   end
