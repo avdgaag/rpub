@@ -1,5 +1,5 @@
 require 'aruba/cucumber'
-require 'zip/zip'
+require 'zip'
 SUPPORT_PATH = File.expand_path(File.join(*%w[.. .. .. support]), __FILE__)
 
 Before do
