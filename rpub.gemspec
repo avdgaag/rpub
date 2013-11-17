@@ -38,7 +38,7 @@ EOS
   # Dependencies
   s.add_runtime_dependency 'typogruby'
   s.add_runtime_dependency 'kramdown'
-  s.add_runtime_dependency 'rubyzip', '~> 1.0.0'
+  s.add_runtime_dependency 'rubyzip', '~> 1.1.0'
   s.add_runtime_dependency 'builder'
   s.add_runtime_dependency 'nokogiri'
   s.add_runtime_dependency 'textstats'
