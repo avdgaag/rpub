@@ -7,7 +7,7 @@ module Rpub
     OutlineElement = Struct.new(:level, :text, :html_id)
 
     def initialize(content, layout)
-      @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:template => layout))
+      @document = Kramdown::Document.new(content, KRAMDOWN_OPTIONS.merge(:input => 'examdown', :template => layout))
     end
 
     # @return [Kramdown::Element] Toc elements hierarchy

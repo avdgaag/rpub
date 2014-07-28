@@ -12,6 +12,7 @@ require 'zip'
 require 'nokogiri'
 require 'textstats'
 require 'typogruby'
+require 'examdown'
 
 module Rpub
   GEM_ROOT = File.expand_path('../../', __FILE__)
