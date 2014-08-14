@@ -1,11 +1,20 @@
-require 'spec_helper'
-
 describe Rpub::Chapter do
   let(:subject) { described_class.new('foo', 1, 'document') }
 
-  its(:content) { should == 'foo' }
-  its(:number)  { should == 1 }
-  its(:layout)  { should == 'document' }
+  describe '#content' do
+    subject { super().content }
+    it { is_expected.to eq('foo') }
+  end
+
+  describe '#number' do
+    subject { super().number }
+    it { is_expected.to eq(1) }
+  end
+
+  describe '#layout' do
+    subject { super().layout }
+    it { is_expected.to eq('document') }
+  end
 
   describe '#uid' do
     it 'should change when content changes' do
@@ -22,54 +31,110 @@ describe Rpub::Chapter do
   end
 
   describe '#xml_id' do
-    its(:xml_id) { should == 'chapter-1' }
+    describe '#xml_id' do
+      subject { super().xml_id }
+      it { is_expected.to eq('chapter-1') }
+    end
   end
 
   describe '#filename' do
-    its(:filename) { should == 'chapter-1-untitled.html' }
+    describe '#filename' do
+      subject { super().filename }
+      it { is_expected.to eq('chapter-1-untitled.html') }
+    end
   end
 
   describe '#outline' do
     context 'when there are no headings' do
       let(:subject) { described_class.new('foo', 1, 'document') }
-      its(:outline) { should have(0).elements }
-      its(:outline) { should be_empty }
+
+      describe '#outline' do
+        subject { super().outline }
+
+        it 'has no elements' do
+          expect(subject.size).to eq(0)
+        end
+      end
+
+      describe '#outline' do
+        subject { super().outline }
+        it { is_expected.to be_empty }
+      end
     end
 
     context 'when there are headings' do
       let(:subject) { described_class.new('# foo', 1, 'document') }
-      its(:outline) { should have(1).elements }
+
+      describe '#outline' do
+        subject { super().outline }
+
+        it 'has 1 element' do
+          expect(subject.size).to eq(1)
+        end
+      end
 
       context 'a single heading entry' do
         let(:subject) { described_class.new('# foo', 1, 'document').outline.first }
-        its(:level)   { should == 1 }
-        its(:text)    { should == 'foo' }
-        its(:html_id) { should == 'foo' }
+
+        describe '#level' do
+          subject { super().level }
+          it { is_expected.to eq(1) }
+        end
+
+        describe '#text' do
+          subject { super().text }
+          it { is_expected.to eq('foo') }
+        end
+
+        describe '#html_id' do
+          subject { super().html_id }
+          it { is_expected.to eq('foo') }
+        end
       end
     end
   end
 
   describe '#title' do
     context 'without a suitable markdown title' do
-      its(:title) { should == 'untitled' }
+      describe '#title' do
+        subject { super().title }
+        it { is_expected.to eq('untitled') }
+      end
     end
 
     context 'with a markdown heading' do
       let(:subject) { described_class.new('# My Title', 1, 'bar') }
-      its(:title) { should == 'My Title' }
+
+      describe '#title' do
+        subject { super().title }
+        it { is_expected.to eq('My Title') }
+      end
     end
   end
 
   describe 'markdown parsing' do
     let(:subject) { described_class.new('foo', 1, nil) }
-    its(:to_html) { should == "<p>foo</p>\n" }
+
+    describe '#to_html' do
+      subject { super().to_html }
+      it { is_expected.to eq("<p>foo</p>\n") }
+    end
   end
 
   describe '#images' do
     let(:subject) { described_class.new('![alt](foo.png)', 1, 'document') }
 
-    it { should have(1).images }
-    its('images.first') { should == 'foo.png' }
+    it 'has 1 image' do
+      expect(subject.images.size).to eq(1)
+    end
+
+    describe '#images' do
+      subject { super().images }
+      describe '#first' do
+        subject { super().first }
+        it { is_expected.to eq('foo.png') }
+      end
+    end
   end
 
   describe '#outline' do

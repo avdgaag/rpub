@@ -44,7 +44,7 @@ EOS
   s.add_runtime_dependency 'textstats'
   s.add_runtime_dependency 'commander'
   s.add_development_dependency 'yard'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'cucumber'

@@ -1,41 +1,41 @@
-require 'spec_helper'
-
 describe Rpub::Book do
   let(:context) { Rpub::Context.new }
   let(:subject) { described_class.new(context) }
-  before        { context.stub :chapter_files => ['foo'] }
-  it            { should respond_to(:config) }
+  before        { allow(context).to receive(:chapter_files).and_return(['foo']) }
+  it            { is_expected.to respond_to(:config) }
 
   describe 'chapters' do
-    it { should have(1).chapters }
+    it 'has 1 chapter' do
+      expect(subject.chapters.size).to eq(1)
+    end
 
-    it { should be_kind_of(Enumerable) }
+    it { is_expected.to be_kind_of(Enumerable) }
 
     it 'should start with context chapters' do
-      should have(1).chapters
+      expect(subject.chapters.size).to eq(1)
     end
 
     it 'should allow chaining multiple calls' do
       subject << 'foo' << 'bar'
-      expect(subject).to have(3).chapters
+      expect(subject.chapters.size).to eq(3)
     end
 
     it 'should yield chapters' do
       yielded = false
       subject.each { |c| yielded = true }
-      expect(yielded).to be_true
+      expect(yielded).to be_truthy
     end
   end
 
   describe '#has_fonts?' do
     it 'should not have a font by default' do
-      context.should_receive(:fonts).and_return([])
-      should_not have_fonts
+      expect(context).to receive(:fonts).and_return([])
+      is_expected.not_to have_fonts
     end
 
     it 'should have a font with a non-empty array' do
-      context.should_receive(:fonts).and_return(['foo'])
-      should have_fonts
+      expect(context).to receive(:fonts).and_return(['foo'])
+      is_expected.to have_fonts
     end
   end
 
@@ -50,7 +50,7 @@ describe Rpub::Book do
   end
 
   describe '#outline' do
-    before { context.should_receive(:chapter_files).and_return([]) }
+    before { expect(context).to receive(:chapter_files).and_return([]) }
 
     it 'should return empty array when there are no chapters' do
       expect(subject.outline).to be_empty
@@ -58,7 +58,7 @@ describe Rpub::Book do
 
     it 'should return combination of all chapter outlines with filename' do
       subject << '# foo' << '# bar'
-      expect(subject.outline).to have(2).elements
+      expect(subject.outline.size).to eq(2)
     end
 
     it 'should combine chapter outlines' do
@@ -70,41 +70,46 @@ describe Rpub::Book do
 
   describe '#has_cover?' do
     it 'should not have a cover without a config key' do
-      should_not have_cover
+      is_expected.not_to have_cover
     end
 
     it 'should not have a cover with a config key that is false' do
-      context.should_receive(:config).and_return(OpenStruct.new({ 'cover_image' => false }))
-      should_not have_cover
+      expect(context).to receive(:config).and_return(OpenStruct.new({ 'cover_image' => false }))
+      is_expected.not_to have_cover
     end
 
     it 'should have a cover with a config key' do
-      context.should_receive(:config).and_return(OpenStruct.new({ 'cover_image' => true }))
-      should have_cover
+      expect(context).to receive(:config).and_return(OpenStruct.new({ 'cover_image' => true }))
+      is_expected.to have_cover
     end
   end
 
   describe '#has_toc?' do
     it 'should not have a toc without a config key' do
-      context.should_receive(:config).and_return(OpenStruct.new)
-      should_not have_toc
+      expect(context).to receive(:config).and_return(OpenStruct.new)
+      is_expected.not_to have_toc
     end
 
     it 'should not have a toc with a config key that is false' do
-      context.should_receive(:config).and_return(OpenStruct.new({ 'toc' => false }))
-      should_not have_toc
+      expect(context).to receive(:config).and_return(OpenStruct.new({ 'toc' => false }))
+      is_expected.not_to have_toc
     end
 
     it 'should have a toc with a config key' do
-      context.should_receive(:config).and_return(OpenStruct.new({ 'toc' => true }))
-      should have_toc
+      expect(context).to receive(:config).and_return(OpenStruct.new({ 'toc' => true }))
+      is_expected.to have_toc
     end
   end
 
   describe '#images' do
-    before       { subject << '![foo](bar)' << '![baz](qux)' << '![bla](qux)' }
-    it           { should have(2).images }
-    its(:images) { should include('bar') }
-    its(:images) { should include('qux') }
+    before { subject << '![foo](bar)' << '![baz](qux)' << '![bla](qux)' }
+
+    it 'has 2 images' do
+      expect(subject.images.size).to eq(2)
+    end
+
+    it 'has includes each unique image' do
+      expect(subject.images).to include('bar', 'qux')
+    end
   end
 end

@@ -1,6 +1,5 @@
 --format progress
 --color
---order rand
 -Ilib
 -Ispec
 -r spec_helper

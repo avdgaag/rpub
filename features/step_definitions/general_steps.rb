@@ -36,7 +36,7 @@ end
 Then /^the archive "(.*?)" should not contain file "(.*?)"$/ do |filename, entry|
   in_current_dir do
     Zip::File.open(filename, Zip::File::CREATE) do |zipfile|
-      zipfile.find_entry(entry).should be_nil
+      expect(zipfile.find_entry(entry)).to be_nil
     end
   end
 end
