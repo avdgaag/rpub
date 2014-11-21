@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rpub (0.4.1)
+    rpub (0.5.0)
       builder
       commander
       kramdown
