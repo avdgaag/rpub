@@ -1,9 +1,10 @@
+require 'open-uri'
 module Rpub
   module FilesystemSource
     module_function
 
     def read(filename)
-      File.read(filename)
+      open(filename) { |f| f.read }
     end
 
     def exists?(filename)
