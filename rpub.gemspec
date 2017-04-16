@@ -36,6 +36,7 @@ EOS
   ]
 
   # Dependencies
+  s.add_runtime_dependency 'zip'
   s.add_runtime_dependency 'typogruby'
   s.add_runtime_dependency 'kramdown'
   s.add_runtime_dependency 'rubyzip'
