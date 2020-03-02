@@ -65,7 +65,7 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
     rubypants (0.2.0)
-    rubyzip (1.1.6)
+    rubyzip (2.2.0)
     simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
